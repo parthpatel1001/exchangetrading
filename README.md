@@ -1,2 +1,4 @@
 # exchangetrading
-stuff
+```Javascript
+node Run.js
+```
