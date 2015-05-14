@@ -12,6 +12,7 @@
     "coinbase-exchange": "git://github.com/parthpatel1001/coinbase-exchange-node.git",
     "mongodb": "^2.0.27",
     "num": "^0.3.0",
+    "pm2": "^0.12.14",
     "pusher-client": "^0.2.3",
     "redis": "^0.12.1"
   }
