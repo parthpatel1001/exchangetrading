@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    div(class="page-header")
+        h1 Dashboard
+    div(class='row' ng-controller="OrderBookTopController")
+        div(class='col-xs-6')
+            div(class="panel panel-primary")
+                div(class="panel-heading")
+                    h2 Order Book
+                div(class="panel-body")
+                    div(class="row")
+                        div(class="col-xs-6" data-ng-repeat="book in books track by $index")
+                            table(class="table table-bordered table-hover table-condensed col-xs-2")
+                                thead
+                                    th(colspan="2") Bid
+                                    th(colspan="2") Ask
+                                tbody
+                                    tr
+                                        td(ng-bind="book.bid.amount | number: 4")
+                                        td(ng-bind="book.bid.price | number: 4")
+                                        td(ng-bind="book.ask.amount | number: 4")
+                                        td(ng-bind="book.ask.price | number: 4")
+                div(class="panel-footer")
+                    span(class='label label-success small').
+                        (Last updated: {{lastUpdated}})

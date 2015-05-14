@@ -1,0 +1,21 @@
+{
+  "apps": [
+    {
+      "name": "OrderBookPusher",
+      "script": "app/PushOrderBook.js"
+    },
+    {
+      "name": "OrderBookTrader",
+      "script": "app/TradeOrderBook.js"
+    },
+    {
+      "name": "Dashboard",
+      "script":"Dashboard/bin/www",
+      "watch" : "Dashboard"
+    },
+    {
+      "name": "DashboardSocket",
+      "script": "app/DashboardSocket.js"
+    }
+  ]
+}

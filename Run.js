@@ -1,27 +1,28 @@
 /**
  * Created by parthpatel1001 on 5/9/15.
  */
+var pm2 = require('pm2');
+// Connect or launch PM2
+//pm2.connect(function(err) {
+//    pm2.start([{
+//            script: 'app/PushOrderBook.js',
+//            name: 'OrderBookPusher'
+//        }
+//        //,{
+//        //    script: 'app/TradeOrderBook.js',
+//        //    name : 'OrderBookTrader'
+//        //}
+//    ]
+//    , function(err, proc) {
+//        if (err) throw new Error('err');
+//        pm2.disconnect(function() { process.exit(0) });
+//    });
+//});
 
-
-var num = require('num'),
-    Arbiter = require('./Exchange/Trading/Arbiter.js'),
-    Trader  = require('./Exchange/Trading/Trader.js'),
-    CoinbaseOrderBook = require('./Exchange/Coinbase/CoinbaseOrderBook.js'),
-    CoinbaseExchange  = require('./Exchange/Coinbase/CoinbaseExchange.js'),
-    BitstampOrderBook = require('./Exchange/Bitstamp/BitstampOrderBook.js'),
-    BitstampExchange  = require('./Exchange/Bitstamp/BitstampExchange.js'),
-    OrderBookManager  = require('./Exchange/Manager/OrderBookManager.js'),
-    ExchangeManager   = require('./Exchange/Manager/ExchangeManager.js');
-
-// has to be same order as exchange manager
-OrderBookManager  = new OrderBookManager()
-    .addOrderBook(new CoinbaseOrderBook())
-    .addOrderBook(new BitstampOrderBook());
-
-// has to be same order as exchange manager
-ExchangeManager = new ExchangeManager()
-    .addExchange(new CoinbaseExchange())
-    .addExchange(new BitstampExchange());
-
-new Arbiter(.00005) // threshold
-    .arbTwoExchanges(OrderBookManager,ExchangeManager,new Trader());
+pm2.connect(function(err) {
+    pm2.start('pm2_app.json'
+        , function(err, proc) {
+            if (err) throw new Error('err');
+            pm2.disconnect(function() { process.exit(0) });
+        });
+});

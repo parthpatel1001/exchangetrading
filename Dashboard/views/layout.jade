@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap/bootstrap.min.css')
+
+
+  body(ng-app="dashboard")
+    block content
+    script(src='/javascripts/vendor/angularjs/angular.min.js')
+    script(src='/javascripts/vendor/angular-route/angular-route.min.js')
+    script(src='/javascripts/vendor/angular-socket-io/socket.min.js')
+    script(src='/javascripts/vendor/socket.io-client/socket.io.js')
+    script(src='/javascripts/dashboard/controllers.js')
