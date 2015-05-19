@@ -10,13 +10,15 @@ var
     OrderBookPusher  = require('../lib/OrderBook/OrderBookPusher.js');
 
 console.log('Starting OrderBookPusher');
+var COINBASE_EXCHANGE_ID = 0;
+var BITSTAMP_EXCHANGE_ID = 1;
 
 new OrderBookPusher(
     // TODO make this safer by making an exchangeOBHolder
     // has to be same order as exchange manager
     new OrderBookManager()
-        .addOrderBook(new CoinbaseOrderBook())
-        .addOrderBook(new BitstampOrderBook()),
+        .addOrderBook(new CoinbaseOrderBook(COINBASE_EXCHANGE_ID))
+        .addOrderBook(new BitstampOrderBook(BITSTAMP_EXCHANGE_ID)),
     Redis  // TODO add redis config here
 )
 // TODO make this a config
