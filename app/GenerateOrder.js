@@ -19,7 +19,7 @@ ExchangeManager = new ExchangeManager()
     .addExchange(new CoinbaseExchange(COINBASE_EXCHANGE_ID))
     .addExchange(new BitstampExchange(BITSTAMP_EXCHANGE_ID));
 
-var MAX_TRADE_AMOUNT = 7.0;
+var MAX_TRADE_AMOUNT = 7.00000000;
 OrderGenerator = new OrderGenerator(Order,MAX_TRADE_AMOUNT);
 // TODO move this to a config
 OrderGenerator.registerOrderPublisher(new OrderPublisher(Redis,'LINKED_ORDER_STREAM'));
