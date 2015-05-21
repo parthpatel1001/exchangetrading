@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bitstamp": "^0.1.9",
     "coinbase-exchange": "git://github.com/parthpatel1001/coinbase-exchange-node.git",
     "mongodb": "^2.0.27",
     "num": "^0.3.0",

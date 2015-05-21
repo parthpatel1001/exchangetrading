@@ -5,8 +5,12 @@
       "script": "app/PushOrderBook.js"
     },
     {
-      "name": "OrderBookTrader",
-      "script": "app/TradeOrderBook.js"
+      "name": "OrderGenerator",
+      "script": "app/GenerateOrder.js"
+    },
+    {
+      "name": "OrderProcessor",
+      "script": "app/ProcessOrder.js"
     },
     {
       "name": "Dashboard",
