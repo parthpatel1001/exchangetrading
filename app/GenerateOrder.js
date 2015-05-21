@@ -19,13 +19,13 @@ ExchangeManager = new ExchangeManager()
     .addExchange(new CoinbaseExchange(COINBASE_EXCHANGE_ID))
     .addExchange(new BitstampExchange(BITSTAMP_EXCHANGE_ID));
 
-
-OrderGenerator = new OrderGenerator(Order);
+var MAX_TRADE_AMOUNT = 7.0;
+OrderGenerator = new OrderGenerator(Order,MAX_TRADE_AMOUNT);
 // TODO move this to a config
 OrderGenerator.registerOrderPublisher(new OrderPublisher(Redis,'LINKED_ORDER_STREAM'));
 
 // TODO move this to a config
-var ARBITRAGE_THRESHOLD = .007;
+var ARBITRAGE_THRESHOLD = .0051; // HAS TO BE >= (1+FEE_TO_BUY)/(1-FEE_TO_BUY)
 Arbiter = new Arbiter(ARBITRAGE_THRESHOLD);
 Arbiter.registerOrderGenerator(OrderGenerator);
 

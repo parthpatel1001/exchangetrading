@@ -8,7 +8,7 @@ var
     OrderProcessor = require('../lib/Order/OrderProcessor.js');
 
 // TODO move this to a config
-var MAX_TRADE_AMOUNT = 5.0;
+
 OrderProcessor = new OrderProcessor(MAX_TRADE_AMOUNT);
 OrderSubscriber = new OrderSubscriber(Redis,Order);
 
