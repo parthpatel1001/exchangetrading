@@ -22,8 +22,7 @@
       "name": "Dashboard",
       "script":"Dashboard/bin/www",
       "instances":1,
-      "exec_mode":"cluster_mode",
-      "watch" : "Dashboard"
+      "exec_mode":"cluster_mode"
     },
     {
       "name": "DashboardSocket",
