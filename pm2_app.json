@@ -2,24 +2,46 @@
   "apps": [
     {
       "name": "OrderBookPusher",
-      "script": "app/PushOrderBook.js"
+      "script": "app/PushOrderBook.js",
+      "instances":1,
+      "exec_mode":"cluster_mode"
     },
     {
       "name": "OrderGenerator",
-      "script": "app/GenerateOrder.js"
+      "script": "app/GenerateOrder.js",
+      "instances":1,
+      "exec_mode":"cluster_mode"
     },
     {
       "name": "OrderProcessor",
-      "script": "app/ProcessOrder.js"
+      "script": "app/ProcessOrder.js",
+      "instances":1,
+      "exec_mode":"cluster_mode"
     },
     {
       "name": "Dashboard",
       "script":"Dashboard/bin/www",
+      "instances":1,
+      "exec_mode":"cluster_mode",
       "watch" : "Dashboard"
     },
     {
       "name": "DashboardSocket",
-      "script": "app/DashboardSocket.js"
+      "script": "app/DashboardSocket.js",
+      "instances":1,
+      "exec_mode":"cluster_mode"
+    },
+    {
+      "name": "OrderBookTracker",
+      "script": "app/TrackOrderBook.js",
+      "instances":1,
+      "exec_mode":"cluster_mode"
+    },
+    {
+      "name":"StatsD",
+      "script":"app/Statsd.js",
+      "instances":1,
+      "exec_mode":"cluster_mode"
     }
   ]
 }

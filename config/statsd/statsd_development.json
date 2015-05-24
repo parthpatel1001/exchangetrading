@@ -1,0 +1,5 @@
+{
+  backends: ["./backends/console"],
+  port: 8125,
+  flushInterval: 1000
+}
