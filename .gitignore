@@ -29,3 +29,9 @@ Dashboard/node_modules
 Dashboard/public/javascripts/vendor
 # ignore phpstorm
 .idea/
+
+#ignore production config
+config/production.json
+config/production-0.json
+config/statsd/statsd_production.json
+test.js

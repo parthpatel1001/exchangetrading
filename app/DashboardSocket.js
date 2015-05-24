@@ -7,7 +7,7 @@ var Redis = require("redis");
 var OrderBookSubscriber = require('../lib/OrderBook/OrderBookSubscriber.js');
 var OrderSubscriber = require('../lib/Order/OrderSubscriber.js');
 var Order = require('../lib/Order/Order.js');
-
+var config = require('config');
 server.listen(8080); // TODO make this a config
 
 OrderBookSubscriber = new OrderBookSubscriber(Redis);
@@ -15,21 +15,21 @@ OrderSubscriber = new OrderSubscriber(Redis,Order);
 
 io.on('connection', function (socket) {
     OrderBookSubscriber.subscribeToOrderBookTop(
-        'ORDER_BOOK_TICK', // TODO make this a config
+        config.get('EventChannels.ORDER_BOOK_TICK'),
         function(bookTop) {
             socket.emit(
-                'ORDER_BOOK_SOCKET', // TODO make this a config
+                config.get('Sockets.ORDER_BOOK_SOCKET'),
                 bookTop
             );
         }
     );
 
     OrderSubscriber.subscribeToLinkedOrderStream(
-        "LINKED_ORDER_STREAM", // TODO make this a config
+        config.get('EventChannels.LINKED_ORDER_STREAM'),
         function(order1,order2){
             var data = JSON.stringify([order1.serialize(),order2.serialize()]);
             socket.emit(
-                'LINKED_ORDER_STREAM_SOCKET',
+                config.get('Sockets.ORDER_BOOK_SOCKET'),
                 data
             );
         }

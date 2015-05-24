@@ -3,6 +3,10 @@
  */
 var pm2 = require('pm2');
 
+if(!process.env.NODE_ENV) {
+    throw new Error('Must define NODE_ENV');
+}
+
 pm2.connect(function(err) {
     pm2.start('pm2_app.json'
         , function(err, proc) {

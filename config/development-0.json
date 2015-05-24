@@ -1,0 +1,5 @@
+{
+  // here for clustering mode
+  // https://github.com/lorenwest/node-config/wiki/Multiple-Node-Instances
+  // https://github.com/Unitech/PM2/blob/master/ADVANCED_README.md#considerations
+}
