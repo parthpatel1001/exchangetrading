@@ -12,14 +12,14 @@
       "name": "OrderProcessor",
       "script": "app/ProcessOrder.js"
     },
-    {
-      "name": "Dashboard",
-      "script":"Dashboard/bin/www"
-    },
-    {
-      "name": "DashboardSocket",
-      "script": "app/DashboardSocket.js"
-    },
+//    {
+//      "name": "Dashboard",
+//      "script":"Dashboard/bin/www"
+//    },
+//    {
+//      "name": "DashboardSocket",
+//      "script": "app/DashboardSocket.js"
+//    },
     {
       "name": "OrderBookTracker",
       "script": "app/TrackOrderBook.js"
