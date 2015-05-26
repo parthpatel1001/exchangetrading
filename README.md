@@ -5,7 +5,7 @@
 npm install
 npm install pm2 -g
 cd Dashboard && npm install && bower install
-node run.js # from root
+pm2 start pm2_app.json # from root
 
 # show list of running process'
 pm2 list
