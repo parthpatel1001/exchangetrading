@@ -4,18 +4,20 @@
   },
   "EventChannels":{
     "ORDER_BOOK_TICK" : "ORDER_BOOK_TICK",
-    "LINKED_ORDER_STREAM" : "LINKED_ORDER_STREAM"
+    "LINKED_ORDER_STREAM" : "LINKED_ORDER_STREAM",
+    "BALANCE_UPDATED": "BALANCE_UPDATED"
   },
   "CacheKeys":{
-    "ORDER_BOOK_TOP":"ORDER_BOOK_TOP"
+    "ORDER_BOOK_TOP":"ORDER_BOOK_TOP",
+    "EXCHANGE_BALANCE":"EXCHANGE_BALANCE"
   },
   "Sockets":{
     "ORDER_BOOK_SOCKET":"ORDER_BOOK_SOCKET",
     "LINKED_ORDER_STREAM_SOCKET":"LINKED_ORDER_STREAM_SOCKET"
   },
   "TradeThresholds":{
-    "MAX_TRADE_AMOUNT": 7.0000000,
-    "COINBASE_BITSTAMP_ARB_THRESHOLD": 0.0051
+    "MAX_TRADE_AMOUNT": 7.0000000, //USD
+    "COINBASE_BITSTAMP_ARB_THRESHOLD": 0.0051 //percent as decimal
   },
   "Statsd":{
     "development_json_location": "config/statsd/statsd_development.json",
@@ -27,14 +29,18 @@
       "key":"",
       "b4secret":"",
       "passphrase":"",
-      "trading_enabled":false
+      "bitcoin_account_id":"",
+      "usd_account_id":"",
+      "trading_enabled":false,
+      "balance_poll_interval":30000 // 30 s
     },
     "Bitstamp":{
       "id":1,
       "key":"",
       "secret":"",
       "clientId":"",
-      "trading_enabled":false
+      "trading_enabled":false,
+      "balance_poll_interval":30000 // 30 s
     }
   }
 }
