@@ -1,25 +1,47 @@
 # exchangetrading
-```Javascript
-# must have redis installed
+## Install
 
-npm install
+### Global Installs
+- [redis](http://redis.io)
+- [pm2](https://github.com/Unitech/pm2)
+- [bower](http://bower.io)
+```
+brew install redis
 npm install pm2 -g
-cd Dashboard && npm install && bower install
+npm install bower -g
+```
 
-# To Run The App:
+### Init Git Submodules
+[git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules#Cloning-a-Project-with-Submodules)
+```
+git submodule init
+git submodule update
+```
+
+### Init npm packages
+```
+npm install
+```
+
+### Legacy dashboard
+We might not use the dashboard anymore, but the existing old one is here:
+```
+cd Dashboard && npm install && bower install
+```
+Uncomment the dashboard app in [pm2_app.json](https://github.com/parthpatel1001/exchangetrading/blob/master/pm2_app.json)
+
+## To Run The App:
 export NODE_ENV=development
 pm2 start pm2_app.json
 
-# show list of running process'
+### show list of running process'
 pm2 list
 
-# watch logs
+### watch logs
 pm2 logs
 
-# monitor process'
+### monitor process'
 pm2 monit
 
-# express folder watches for changes and restarts the node process
-# to restart all process:
+### restart process'
 pm2 restart all
-```
