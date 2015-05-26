@@ -5,7 +5,10 @@
 npm install
 npm install pm2 -g
 cd Dashboard && npm install && bower install
-pm2 start pm2_app.json # from root
+
+# To Run The App:
+export NODE_ENV=development
+pm2 start pm2_app.json
 
 # show list of running process'
 pm2 list
