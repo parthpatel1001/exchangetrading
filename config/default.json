@@ -17,7 +17,9 @@
   },
   "TradeThresholds":{
     "MAX_TRADE_AMOUNT": 7.0000000, //USD
-    "COINBASE_BITSTAMP_ARB_THRESHOLD": 0.0051 //percent as decimal
+    "COINBASE_BITSTAMP_ARB_THRESHOLD": 0.0051, //percent as decimal
+    "MINIMUM_BUY_BALANCE_THRESHOLD": 0.01, // balance must be > orderAmount*threshold in order to execute
+    "MINIMUM_SELL_BALANCE_THRESHOLD": 0.01
   },
   "Statsd":{
     "development_json_location": "config/statsd/statsd_development.json",
@@ -32,7 +34,8 @@
       "bitcoin_account_id":"",
       "usd_account_id":"",
       "trading_enabled":false,
-      "balance_poll_interval":30000 // 30 s
+      "balance_poll_interval":30000, // 30 s
+      "trade_fee": 0.0025
     },
     "Bitstamp":{
       "id":1,
@@ -40,7 +43,8 @@
       "secret":"",
       "clientId":"",
       "trading_enabled":false,
-      "balance_poll_interval":30000 // 30 s
+      "balance_poll_interval":30000, // 30 s
+      "trade_fee": 0.0025
     }
   }
 }
