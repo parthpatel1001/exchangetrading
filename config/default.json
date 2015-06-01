@@ -35,7 +35,8 @@
       "usd_account_id":"",
       "trading_enabled":false,
       "balance_poll_interval":30000, // 30 s
-      "trade_fee": 0.0025
+      "trade_fee": 0.0025,
+      "mock_order_book": true
     },
     "Bitstamp":{
       "id":1,
@@ -44,7 +45,8 @@
       "clientId":"",
       "trading_enabled":false,
       "balance_poll_interval":30000, // 30 s
-      "trade_fee": 0.0025
+      "trade_fee": 0.0025,
+      "mock_order_book": true
     }
   }
 }
