@@ -36,7 +36,7 @@
       "trading_enabled":false,
       "balance_poll_interval":30000, // 30 s
       "trade_fee": 0.0025,
-      "mock_order_book": true
+      "use_live_orderbook": false
     },
     "Bitstamp":{
       "id":1,
@@ -46,7 +46,7 @@
       "trading_enabled":false,
       "balance_poll_interval":30000, // 30 s
       "trade_fee": 0.0025,
-      "mock_order_book": true
+      "use_live_orderbook": false
     }
   }
 }
