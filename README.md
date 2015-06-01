@@ -9,6 +9,7 @@
 brew install redis
 npm install pm2 -g
 npm install bower -g
+npm install mocha -g
 ```
 
 ### Init Git Submodules
