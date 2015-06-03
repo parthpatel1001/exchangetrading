@@ -21,6 +21,21 @@
     "MINIMUM_BUY_BALANCE_THRESHOLD": 0.01, // balance must be > orderAmount*threshold in order to execute
     "MINIMUM_SELL_BALANCE_THRESHOLD": 0.01
   },
+  "Notification":{
+    "Slack":{
+      "default_channel":"#general",
+      "error_config":{
+        "hook_url":"",
+        "channel":"#general",
+        "botname":"Ultron"
+      },
+     "general_config":{
+       "hook_url":"",
+       "channel":"#general",
+       "botname":"Jarvis"
+     }
+    }
+  },
   "Statsd":{
     "development_json_location": "config/statsd/statsd_development.json",
     "production_json_location": "config/statsd/statsd_production.json"
