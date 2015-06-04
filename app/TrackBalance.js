@@ -13,8 +13,9 @@ var
 
 var coinbase = new CoinbaseExchange(config.get('Exchange.Coinbase.id'));
 var bitstamp = new BitstampExchange(config.get('Exchange.Bitstamp.id'));
+var exchanges = [coinbase, bitstamp];
 
-BalanceTracker = new BalanceTracker(Redis,Balance);
+BalanceTracker = new BalanceTracker(Redis,Balance, exchanges);
 BalanceTracker.trackBalance(config.get('Exchange.Coinbase.balance_poll_interval'),coinbase);
 BalanceTracker.trackBalance(config.get('Exchange.Bitstamp.balance_poll_interval'),bitstamp);
 

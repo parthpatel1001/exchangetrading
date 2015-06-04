@@ -14,11 +14,17 @@ var
     config = require('config');
 
 
-ExchangeManager = new ExchangeManager()
-    .addExchange(new CoinbaseExchange(config.get('Exchange.Coinbase.id')))
-    .addExchange(new BitstampExchange(config.get('Exchange.Bitstamp.id')));
+var coinbase = new CoinbaseExchange(config.get('Exchange.Coinbase.id')),
+    bitstamp = new BitstampExchange(config.get('Exchange.Bitstamp.id'));
 
-BalanceTracker = new BalanceTracker(Redis,Balance);
+var exchanges = [coinbase, bitstamp];
+
+ExchangeManager = new ExchangeManager();
+for(var i = 0, len = exchanges.length; i < len; i++) {
+    ExchangeManager.addExchange(exchanges[i]);
+}
+
+BalanceTracker = new BalanceTracker(Redis,Balance, exchanges);
 
 OrderProcessor = new OrderProcessor(ExchangeManager,BalanceTracker);
 OrderSubscriber = new OrderSubscriber(Redis,Order);
