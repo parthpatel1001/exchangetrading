@@ -9,13 +9,12 @@ var
     OrderBookManager  = require('../lib/OrderBook/OrderBookManager.js'),
     OrderBookPusher  = require('../lib/OrderBook/OrderBookPusher.js'),
     config = require('config'),
-    Slack = require('../lib/Slack/SlackMessenger.js'),
     Notification = require('../lib/Notification.js'), // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
     async = require('async'),
     pm2 = require('pm2');
 
 
-var notifier = new Notification(new Slack());
+var notifier = new Notification();
 var opts = config.get('Notification.Slack.error_config');
 
 new OrderBookPusher(
