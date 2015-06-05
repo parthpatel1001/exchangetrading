@@ -1,9 +1,4 @@
-/**
- * Created by parthpatel1001 on 5/14/15.
- */
-
 var
-    Redis = require("redis"),
     CoinbaseOrderBook = require('../lib/Exchange/Coinbase/CoinbaseOrderBook.js'),
     BitstampOrderBook = require('../lib/Exchange/Bitstamp/BitstampOrderBook.js'),
     OrderBookManager  = require('../lib/OrderBook/OrderBookManager.js'),
@@ -14,20 +9,16 @@ var
     async = require('async'),
     pm2 = require('pm2');
 
+OrderBookManager = new OrderBookManager();
+OrderBookManager.addOrderBook(new CoinbaseOrderBook());
+OrderBookManager.addOrderBook(new BitstampOrderBook());
+OrderBookPusher = new OrderBookPusher(OrderBookManager);
 
+// Potential TODO: Move this into it's own file / class that can be require'd / init'd by all of the app files?
 var notifier = new Notification(new Slack());
 var opts = config.get('Notification.Slack.error_config');
-
-new OrderBookPusher(
-    new OrderBookManager()
-        .addOrderBook(new CoinbaseOrderBook(config.get('Exchange.Coinbase.id')))
-        .addOrderBook(new BitstampOrderBook(config.get('Exchange.Bitstamp.id'))),
-    Redis
-)
-    .subscribeOrderBookToRedis(config.get('CacheKeys.ORDER_BOOK_TOP'),config.get('EventChannels.ORDER_BOOK_TICK'));
-
 process.on('uncaughtException', function (e) {
-    console.error('Uncaught Excception',e);
+    console.error('PushOrderBook App Uncaught Exception',e);
     var error = e.toString() || JSON.stringify(e);
 
     async.parallel([
