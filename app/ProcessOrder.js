@@ -6,9 +6,8 @@ var OrderSubscriber = require('../lib/Order/OrderSubscriber.js'),
     BalanceTracker = require('../lib/Balance/BalanceTracker.js'),
     config = require('config');
 
-
-var coinbase = new CoinbaseExchange(config.get('Exchange.Coinbase.id')),
-    bitstamp = new BitstampExchange(config.get('Exchange.Bitstamp.id'));
+var coinbase = new CoinbaseExchange(),
+    bitstamp = new BitstampExchange();
 
 var exchanges = [coinbase, bitstamp];
 
