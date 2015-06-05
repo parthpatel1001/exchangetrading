@@ -1,6 +1,3 @@
-/**
- * Created by parthpatel1001 on 5/14/15.
- */
 var
     Redis = require("redis"),
     OrderBookSubscriber = require('../lib/OrderBook/OrderBookSubscriber.js'),
@@ -10,4 +7,4 @@ var
 
 OrderBookTracker = new OrderBookTracker(Track);
 OrderBookSubscriber = new OrderBookSubscriber(Redis);
-OrderBookSubscriber.subscribeToOrderBookTop(config.get('EventChannels.ORDER_BOOK_TICK'),OrderBookTracker.trackOrderBook);
+OrderBookSubscriber.subscribeToOrderBookTop(OrderBookTracker.trackOrderBook);
