@@ -8,6 +8,12 @@
   },
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-babel": "*",
+    "gulp-sourcemaps": "*",
+    "source-map-support": "*"
+  },
   "dependencies": {
     "async": "^1.0.0",
     "bitstamp": "^0.1.9",

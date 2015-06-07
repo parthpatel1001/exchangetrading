@@ -35,3 +35,6 @@ config/production.json
 config/production-0.json
 config/statsd/statsd_production.json
 test.js
+
+# ignore transpiled files
+es5
