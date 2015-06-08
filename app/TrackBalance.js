@@ -1,13 +1,12 @@
-var
-    config = require('config'),
-    BalanceTracker = require('../lib/Balance/BalanceTracker'),
-    CoinbaseExchange  = require('../lib/Exchange/Coinbase/CoinbaseExchange.js'),
-    BitstampExchange  = require('../lib/Exchange/Bitstamp/BitstampExchange.js');
+import config from 'config';
+import {BalanceTracker} from './Balance/BalanceTracker';
+import {CoinbaseExchange} from './Exchange/Coinbase/CoinbaseExchange';
+import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
 
-var coinbase = new CoinbaseExchange();
-var bitstamp = new BitstampExchange();
-var exchanges = [coinbase, bitstamp];
+let coinbase = new CoinbaseExchange(),
+    bitstamp = new BitstampExchange();
+let exchanges = [coinbase, bitstamp];
 
-BalanceTracker = new BalanceTracker(exchanges);
-BalanceTracker.trackBalance(config.get('Exchange.Coinbase.balance_poll_interval'),coinbase);
-BalanceTracker.trackBalance(config.get('Exchange.Bitstamp.balance_poll_interval'),bitstamp);
+let balanceTracker = new BalanceTracker(exchanges);
+balanceTracker.trackBalance(config.get('Exchange.Coinbase.balance_poll_interval'),coinbase);
+balanceTracker.trackBalance(config.get('Exchange.Bitstamp.balance_poll_interval'),bitstamp);

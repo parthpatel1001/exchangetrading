@@ -2,15 +2,15 @@
   "apps": [
     {
       "name": "OrderBookPusher",
-      "script": "app/PushOrderBook.js"
+      "script": "es5/PushOrderBook.js"
     },
     {
       "name": "OrderGenerator",
-      "script": "app/GenerateOrder.js"
+      "script": "es5/GenerateOrder.js"
     },
     {
       "name": "OrderProcessor",
-      "script": "app/ProcessOrder.js"
+      "script": "es5/ProcessOrder.js"
     },
 //    {
 //      "name": "Dashboard",
@@ -22,15 +22,15 @@
 //    },
     {
       "name": "OrderBookTracker",
-      "script": "app/TrackOrderBook.js"
+      "script": "es5/TrackOrderBook.js"
     },
     {
       "name":"StatsD",
-      "script":"app/Statsd.js"
+      "script":"es5/Statsd.js"
     },
     {
       "name":"TrackBalance",
-      "script":"app/TrackBalance.js"
+      "script":"es5/TrackBalance.js"
     }
   ]
 }
