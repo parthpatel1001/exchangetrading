@@ -1,16 +1,12 @@
-var
-    Arbiter = require('../lib/Trading/Arbiter.js'),
-    OrderBookSubscriber = require('../lib/OrderBook/OrderBookSubscriber.js'),
-    OrderGenerator = require('../lib/Order/OrderGenerator.js'),
-    OrderPublisher = require('../lib/Order/OrderPublisher.js');
+import {Arbiter} from './Trading/Arbiter';
+import {OrderBookSubscriber} from './OrderBook/OrderBookSubscriber';
+import {OrderGenerator} from './Order/OrderGenerator';
+import {OrderPublisher} from './Order/OrderPublisher';
 
-OrderPublisher = new OrderPublisher();
+let orderPublisher = new OrderPublisher(),
+    orderGenerator = new OrderGenerator(orderPublisher);
 
-OrderGenerator = new OrderGenerator();
-OrderGenerator.registerOrderPublisher(OrderPublisher);
+let arbiter = new Arbiter(orderGenerator);
 
-Arbiter = new Arbiter();
-Arbiter.registerOrderGenerator(OrderGenerator);
-
-OrderBookSubscriber = new OrderBookSubscriber();
-OrderBookSubscriber.subscribeToOrderBookTop(Arbiter.subscribeTo2ExchangeArbOppurtunities);
+let orderBookSubscriber = new OrderBookSubscriber();
+orderBookSubscriber.subscribeToOrderBookTop(arbiter, 'subscribeTo2ExchangeArbOpportunities');
