@@ -6,8 +6,7 @@ var
 
 var coinbase = new CoinbaseExchange();
 var bitstamp = new BitstampExchange();
-var exchanges = [coinbase, bitstamp];
 
-BalanceTracker = new BalanceTracker(exchanges);
+BalanceTracker = new BalanceTracker();
 BalanceTracker.trackBalance(config.get('Exchange.Coinbase.balance_poll_interval'),coinbase);
 BalanceTracker.trackBalance(config.get('Exchange.Bitstamp.balance_poll_interval'),bitstamp);
