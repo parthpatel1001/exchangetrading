@@ -25,14 +25,22 @@
     "Slack":{
       "default_channel":"#general",
       "error_config":{
+        "hook_url": "",
+        "channel":"#general",
+        "botname":"Ultron",
+        "mrkdwn": true
+      },
+      "good_config":{
         "hook_url":"",
         "channel":"#general",
-        "botname":"Ultron"
+        "botname":"Jarvis",
+        "mrkdwn": true
       },
      "general_config":{
        "hook_url":"",
        "channel":"#general",
-       "botname":"Jarvis"
+       "botname":"Jarvis",
+       "mrkdwn": true
      }
     }
   },
