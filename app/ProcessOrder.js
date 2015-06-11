@@ -11,8 +11,11 @@ var
     ExchangeManager   = require('../lib/Exchange/ExchangeManager.js'),
     BalanceTracker = require('../lib/Balance/BalanceTracker.js'),
     Balance = require('../lib/Balance/Balance.js'),
-    config = require('config');
+    config = require('config'),
+    Slack = require('../lib/Slack/SlackMessenger.js'),
+    Notification = require('../lib/Notification.js') // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER;
 
+var notifier = new Notification(new Slack());
 
 ExchangeManager = new ExchangeManager()
     .addExchange(new CoinbaseExchange(config.get('Exchange.Coinbase.id')))
@@ -20,7 +23,7 @@ ExchangeManager = new ExchangeManager()
 
 BalanceTracker = new BalanceTracker(Redis,Balance);
 
-OrderProcessor = new OrderProcessor(ExchangeManager,BalanceTracker);
+OrderProcessor = new OrderProcessor(ExchangeManager,BalanceTracker,notifier);
 OrderSubscriber = new OrderSubscriber(Redis,Order);
 
 OrderSubscriber.subscribeToLinkedOrderStream(config.get('EventChannels.LINKED_ORDER_STREAM'),OrderProcessor.processLinkedOrder);
