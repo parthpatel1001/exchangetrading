@@ -1,5 +1,11 @@
 {
   "TradeThresholds":{
     "COINBASE_BITSTAMP_ARB_THRESHOLD": 0.000000000001
+  },
+  "Coinbase":{
+    "balance_poll_interval":1000 // 1s, does not reach out to api in dev
+  },
+  "Bitstamp":{
+    "balance_poll_interval":1500 // 1.5s, does not reach out to api in dev
   }
 }
