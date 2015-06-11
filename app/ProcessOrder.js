@@ -27,7 +27,7 @@ for(var i = 0, len = exchanges.length; i < len; i++) {
     ExchangeManager.addExchange(exchanges[i]);
 }
 
-BalanceTracker = new BalanceTracker(Redis,Balance, exchanges);
+BalanceTracker = new BalanceTracker(Redis,Balance);
 
 OrderProcessor = new OrderProcessor(ExchangeManager,BalanceTracker,notifier);
 OrderSubscriber = new OrderSubscriber(Redis,Order);
