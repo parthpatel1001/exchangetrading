@@ -24,10 +24,10 @@
       "name": "OrderBookTracker",
       "script": "app/TrackOrderBook.js"
     },
-//    {
-//      "name":"StatsD",
-//      "script":"app/Statsd.js"
-//    },
+    {
+      "name":"StatsD",
+      "script":"app/Statsd.js"
+    },
     {
       "name":"TrackBalance",
       "script":"app/TrackBalance.js"
