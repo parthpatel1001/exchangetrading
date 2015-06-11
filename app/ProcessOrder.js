@@ -4,11 +4,10 @@ var OrderSubscriber = require('../lib/Order/OrderSubscriber.js'),
     BitstampExchange  = require('../lib/Exchange/Bitstamp/BitstampExchange.js'),
     ExchangeManager   = require('../lib/Exchange/ExchangeManager.js'),
     BalanceTracker = require('../lib/Balance/BalanceTracker.js'),
-    config = require('config');
-    Slack = require('../lib/Slack/SlackMessenger.js'),
+    config = require('config'),
     Notification = require('../lib/Notification.js'); // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER;
 
-var notifier = new Notification(new Slack());
+var notifier = new Notification();
 
 var coinbase = new CoinbaseExchange(config.get('Exchange.Coinbase.id')),
     bitstamp = new BitstampExchange(config.get('Exchange.Bitstamp.id'));
@@ -20,7 +19,7 @@ for(var i = 0, len = exchanges.length; i < len; i++) {
     ExchangeManager.addExchange(exchanges[i]);
 }
 
-BalanceTracker = new BalanceTracker(exchanges);
+BalanceTracker = new BalanceTracker();
 
 OrderProcessor = new OrderProcessor(ExchangeManager,BalanceTracker,notifier);
 OrderSubscriber = new OrderSubscriber();
