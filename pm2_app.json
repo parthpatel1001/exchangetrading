@@ -2,35 +2,58 @@
   "apps": [
     {
       "name": "OrderBookPusher",
-      "script": "app/PushOrderBook.js"
+      "script": "app/PushOrderBook.js",
+      "error_file": "./logs/pm2_err.log",
+      "out_file": "./logs/pm2_out.log"
     },
     {
       "name": "OrderGenerator",
-      "script": "app/GenerateOrder.js"
+      "script": "app/GenerateOrder.js",
+      "error_file": "./logs/pm2_err.log",
+      "out_file": "./logs/pm2_out.log",
+      "autorestart": false
     },
     {
       "name": "OrderProcessor",
-      "script": "app/ProcessOrder.js"
+      "script": "app/ProcessOrder.js",
+      "error_file": "./logs/pm2_err.log",
+      "out_file": "./logs/pm2_out.log",
+      "autorestart": false
     },
 //    {
 //      "name": "Dashboard",
-//      "script":"Dashboard/bin/www"
+//      "script":"Dashboard/bin/www",
+//      "error_file": "./logs/pm2_err.log",
+//      "out_file": "./logs/pm2_out.log",
+//      "autorestart": false
 //    },
 //    {
 //      "name": "DashboardSocket",
-//      "script": "app/DashboardSocket.js"
+//      "script": "app/DashboardSocket.js",
+//      "error_file": "./logs/pm2_err.log",
+//      "out_file": "./logs/pm2_out.log",
+//      "autorestart": false
 //    },
     {
       "name": "OrderBookTracker",
-      "script": "app/TrackOrderBook.js"
+      "script": "app/TrackOrderBook.js",
+      "error_file": "./logs/pm2_err.log",
+      "out_file": "./logs/pm2_out.log",
+      "autorestart": false
     },
     {
       "name":"StatsD",
-      "script":"app/Statsd.js"
+      "script":"app/Statsd.js",
+      "error_file": "./logs/pm2_err.log",
+      "out_file": "./logs/pm2_out.log",
+      "autorestart": false
     },
     {
       "name":"TrackBalance",
-      "script":"app/TrackBalance.js"
+      "script":"app/TrackBalance.js",
+      "error_file": "./logs/pm2_err.log",
+      "out_file": "./logs/pm2_out.log",
+      "autorestart": false
     }
   ]
 }
