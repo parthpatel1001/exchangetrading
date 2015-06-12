@@ -4,7 +4,8 @@
       "name": "OrderBookPusher",
       "script": "app/PushOrderBook.js",
       "error_file": "./logs/pm2_err.log",
-      "out_file": "./logs/pm2_out.log"
+      "out_file": "./logs/pm2_out.log",
+      "cron_restart": "* * * * *" //restart OrderBookPusher every minute
     },
     {
       "name": "OrderGenerator",
@@ -46,7 +47,8 @@
       "script":"app/Statsd.js",
       "error_file": "./logs/pm2_err.log",
       "out_file": "./logs/pm2_out.log",
-      "autorestart": false
+      "autorestart": false,
+      "cron_restart": "0,30 * * * *" //restart StatsD every 30 minutes
     },
     {
       "name":"TrackBalance",
