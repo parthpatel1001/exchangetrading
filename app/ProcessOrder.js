@@ -13,9 +13,12 @@ var
     Balance = require('../lib/Balance/Balance.js'),
     config = require('config'),
     Slack = require('../lib/Slack/SlackMessenger.js'),
-    Notification = require('../lib/Notification.js') // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER;
+    Notification = require('../lib/Notification.js'),  // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER;
+    async = require('async'),
+    pm2 = require('pm2');
 
 var notifier = new Notification(new Slack());
+var opts = config.get('Notification.Slack.error_config');
 
 var coinbase = new CoinbaseExchange(config.get('Exchange.Coinbase.id')),
     bitstamp = new BitstampExchange(config.get('Exchange.Bitstamp.id'));
@@ -33,3 +36,23 @@ OrderProcessor = new OrderProcessor(ExchangeManager,BalanceTracker,notifier);
 OrderSubscriber = new OrderSubscriber(Redis,Order);
 
 OrderSubscriber.subscribeToLinkedOrderStream(config.get('EventChannels.LINKED_ORDER_STREAM'),OrderProcessor.processLinkedOrder);
+
+
+
+process.on('uncaughtException',function(e){
+    console.error('Uncaught Exception',e);
+
+    var error = e.toString() || JSON.stringify(e);
+
+    async.parallel([
+        function(){
+            pm2.connect(function(err){
+                pm2.restart('ProcessOrder'); // TODO make this a config, tricky because pm2 wants its own app declaration file
+                notifier.message("Restarted ProcessOrder",opts);
+                console.log('Restarted ProcessOrder');
+            });
+        },
+        function(){ notifier.message("Exception thrown in *ProcessOrder* ",opts); },
+        function(){ notifier.message(error,opts);}
+    ]);
+});
