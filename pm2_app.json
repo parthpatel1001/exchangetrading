@@ -11,7 +11,7 @@
     {
       "name": "OrderProcessor",
       "script": "app/ProcessOrder.js",
-      "autorestart": false
+      "autorestart": false // this process touches real money, lets not restart this automatically
     },
 //    {
 //      "name": "Dashboard",
