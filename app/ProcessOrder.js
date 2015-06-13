@@ -47,9 +47,9 @@ process.on('uncaughtException',function(e){
     async.parallel([
         function(){
             pm2.connect(function(err){
-                pm2.restart('ProcessOrder'); // TODO make this a config, tricky because pm2 wants its own app declaration file
-                notifier.message("Restarted ProcessOrder",opts);
-                console.log('Restarted ProcessOrder');
+                pm2.stop('ProcessOrder'); // TODO make this a config, tricky because pm2 wants its own app declaration file
+                notifier.message("Stopped ProcessOrder",opts);
+                console.log('Stopped ProcessOrder');
             });
         },
         function(){ notifier.message("Exception thrown in *ProcessOrder* ",opts); },
