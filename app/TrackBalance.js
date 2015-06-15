@@ -1,10 +1,5 @@
-/**
- * Created by parthpatel1001 on 5/24/15.
- */
 var
-    Redis = require("redis"),
     config = require('config'),
-    Balance = require('../lib/Balance/Balance.js'),
     BalanceTracker = require('../lib/Balance/BalanceTracker'),
     CoinbaseExchange  = require('../lib/Exchange/Coinbase/CoinbaseExchange.js'),
     BitstampExchange  = require('../lib/Exchange/Bitstamp/BitstampExchange.js'),
@@ -12,15 +7,13 @@ var
     async = require('async'),
     pm2 = require('pm2');
 
-
-
 var coinbase = new CoinbaseExchange(config.get('Exchange.Coinbase.id'));
 var bitstamp = new BitstampExchange(config.get('Exchange.Bitstamp.id'));
 var notifier = new Notification();
 var opts = config.get('Notification.Slack.error_config');
 
 
-BalanceTracker = new BalanceTracker(Redis,Balance);
+BalanceTracker = new BalanceTracker();
 BalanceTracker.trackBalance(config.get('Exchange.Coinbase.balance_poll_interval'),coinbase);
 BalanceTracker.trackBalance(config.get('Exchange.Bitstamp.balance_poll_interval'),bitstamp);
 
