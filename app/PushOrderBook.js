@@ -4,7 +4,6 @@ var
     OrderBookManager  = require('../lib/OrderBook/OrderBookManager.js'),
     OrderBookPusher  = require('../lib/OrderBook/OrderBookPusher.js'),
     config = require('config'),
-    Slack = require('../lib/Slack/SlackMessenger.js'),
     Notification = require('../lib/Notification.js'), // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
     async = require('async'),
     pm2 = require('pm2');
@@ -14,8 +13,7 @@ OrderBookManager.addOrderBook(new CoinbaseOrderBook());
 OrderBookManager.addOrderBook(new BitstampOrderBook());
 OrderBookPusher = new OrderBookPusher(OrderBookManager);
 
-// Potential TODO: Move this into it's own file / class that can be require'd / init'd by all of the app files?
-var notifier = new Notification(new Slack());
+var notifier = new Notification();
 var opts = config.get('Notification.Slack.error_config');
 process.on('uncaughtException', function (e) {
     console.error('PushOrderBook App Uncaught Exception',e);

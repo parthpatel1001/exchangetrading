@@ -10,15 +10,22 @@
     },
     {
       "name": "OrderProcessor",
-      "script": "es5/ProcessOrder.js"
+      "script": "es5/ProcessOrder.js",
+      "autorestart": false // this process touches real money, lets not restart this automatically
     },
 //    {
 //      "name": "Dashboard",
-//      "script":"Dashboard/bin/www"
+//      "script":"Dashboard/bin/www",
+//      "error_file": "./logs/pm2_err.log",
+//      "out_file": "./logs/pm2_out.log",
+//      "autorestart": false
 //    },
 //    {
 //      "name": "DashboardSocket",
-//      "script": "app/DashboardSocket.js"
+//      "script": "app/DashboardSocket.js",
+//      "error_file": "./logs/pm2_err.log",
+//      "out_file": "./logs/pm2_out.log",
+//      "autorestart": false
 //    },
     {
       "name": "OrderBookTracker",
