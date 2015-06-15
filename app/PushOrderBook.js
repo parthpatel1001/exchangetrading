@@ -13,6 +13,7 @@ OrderBookManager.addOrderBook(new CoinbaseOrderBook());
 OrderBookManager.addOrderBook(new BitstampOrderBook());
 OrderBookPusher = new OrderBookPusher(OrderBookManager);
 
+// Potential TODO: Move this into it's own file / class that can be require'd / init'd by all of the app files?
 var notifier = new Notification();
 var opts = config.get('Notification.Slack.error_config');
 process.on('uncaughtException', function (e) {

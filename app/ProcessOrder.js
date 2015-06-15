@@ -30,9 +30,9 @@ orderSubscriber.subscribeToLinkedOrderStream(config.get('EventChannels.LINKED_OR
 process.on('uncaughtException',function(e){
     console.error('Uncaught Exception',e);
 
-    var notifier = new Notification(),
+    let notifier = new Notification(),
         opts = config.get('Notification.Slack.error_config');
-    var error = e.toString() || JSON.stringify(e);
+    let error = e.toString() || JSON.stringify(e);
 
     async.parallel([
         function(){
