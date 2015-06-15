@@ -7,11 +7,10 @@ var
     async = require('async'),
     pm2 = require('pm2');
 
-var coinbase = new CoinbaseExchange(config.get('Exchange.Coinbase.id'));
-var bitstamp = new BitstampExchange(config.get('Exchange.Bitstamp.id'));
+var coinbase = new CoinbaseExchange();
+var bitstamp = new BitstampExchange();
 var notifier = new Notification();
 var opts = config.get('Notification.Slack.error_config');
-
 
 BalanceTracker = new BalanceTracker();
 BalanceTracker.trackBalance(config.get('Exchange.Coinbase.balance_poll_interval'),coinbase);
