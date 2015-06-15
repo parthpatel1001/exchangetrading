@@ -1,17 +1,13 @@
 import config from 'config';
+import async from 'async';
+import pm2 from 'pm2';
 import {BalanceTracker} from './Balance/BalanceTracker';
 import {CoinbaseExchange} from './Exchange/Coinbase/CoinbaseExchange';
 import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
-var
-    Notification = require('../lib/Notification.js'), // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
-    async = require('async'),
-    pm2 = require('pm2');
+import {Notification} from './Notification'; // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
 
 let coinbase = new CoinbaseExchange(),
     bitstamp = new BitstampExchange();
-
-var notifier = new Notification();
-var opts = config.get('Notification.Slack.error_config');
 
 let balanceTracker = new BalanceTracker();
 balanceTracker.trackBalance(config.get('Exchange.Coinbase.balance_poll_interval'),coinbase);
@@ -19,8 +15,9 @@ balanceTracker.trackBalance(config.get('Exchange.Bitstamp.balance_poll_interval'
 
 process.on('uncaughtException',function(e){
     console.error('Uncaught Exception',e);
-
-    var error = e.toString() || JSON.stringify(e);
+    let notifier = new Notification(),
+        opts = config.get('Notification.Slack.error_config'),
+        error = e.toString() || JSON.stringify(e);
 
     async.parallel([
         function(){

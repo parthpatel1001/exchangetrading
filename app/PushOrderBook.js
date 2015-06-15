@@ -1,12 +1,13 @@
+import async from 'async';
+import config from 'config';
+import pm2 from 'pm2';
+import {Notification} from './Notification'; // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
+
 var
     CoinbaseOrderBook = require('../lib/Exchange/Coinbase/CoinbaseOrderBook.js'),
     BitstampOrderBook = require('../lib/Exchange/Bitstamp/BitstampOrderBook.js'),
     OrderBookManager  = require('../lib/OrderBook/OrderBookManager.js'),
-    OrderBookPusher  = require('../lib/OrderBook/OrderBookPusher.js'),
-    config = require('config'),
-    Notification = require('../lib/Notification.js'), // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
-    async = require('async'),
-    pm2 = require('pm2');
+    OrderBookPusher  = require('../lib/OrderBook/OrderBookPusher.js');
 
 OrderBookManager = new OrderBookManager();
 OrderBookManager.addOrderBook(new CoinbaseOrderBook());
@@ -21,15 +22,15 @@ process.on('uncaughtException', function (e) {
     var error = e.toString() || JSON.stringify(e);
 
     async.parallel([
-        function(){
-            pm2.connect(function(err){
+        () =>{
+            pm2.connect((err) => {
                 pm2.restart('OrderBookPusher'); // TODO make this a config, tricky because pm2 wants its own app declaration file
                 notifier.message("Restarted OrderBookPusher",opts);
                 console.log('Restarted OrderBookPusher');
             });
         },
-        function(){ notifier.message("Exception thrown in *PushOrderBook* ",opts); },
-        function(){ notifier.message(error,opts);}
+        () => { notifier.message("Exception thrown in *PushOrderBook* ",opts); },
+        () => { notifier.message(error,opts);}
     ]);
 });
 

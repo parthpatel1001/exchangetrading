@@ -1,14 +1,12 @@
 import config from 'config';
-import {BalanceTracker} from './Balance/BalanceTracker';
+import async from 'async';
+import pm2 from 'pm2';
 import {CoinbaseExchange} from './Exchange/Coinbase/CoinbaseExchange';
 import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
 import {OrderProcessor} from './Order/OrderProcessor';
 import {OrderSubscriber} from './Order/OrderSubscriber';
-var Notification = require('../lib/Notification.js'), // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
-    async = require('async'),
-    pm2 = require('pm2');
-
-var ExchangeManager   = require('../es5/Exchange/ExchangeManager.js');
+import {Notification} from'./Notification'; // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
+import {ExchangeManager} from './Exchange/ExchangeManager';
 
 let coinbase = new CoinbaseExchange(),
     bitstamp = new BitstampExchange();
@@ -20,14 +18,12 @@ for(let i = 0, len = exchanges.length; i < len; i++) {
     exchangeManager.addExchange(exchanges[i]);
 }
 
-let balanceTracker = new BalanceTracker(exchanges);
-
-let orderProcessor = new OrderProcessor(exchangeManager,balanceTracker),
+let orderProcessor = new OrderProcessor(exchangeManager),
     orderSubscriber = new OrderSubscriber();
 
 orderSubscriber.subscribeToLinkedOrderStream(config.get('EventChannels.LINKED_ORDER_STREAM'),orderProcessor.processLinkedOrder);
 
-process.on('uncaughtException',function(e){
+process.on('uncaughtException',(e) => {
     console.error('Uncaught Exception',e);
 
     let notifier = new Notification(),
@@ -35,14 +31,14 @@ process.on('uncaughtException',function(e){
     let error = e.toString() || JSON.stringify(e);
 
     async.parallel([
-        function(){
+        () => {
             pm2.connect(function(err){
                 pm2.stop('ProcessOrder'); // TODO make this a config, tricky because pm2 wants its own app declaration file
                 notifier.message("Stopped ProcessOrder",opts);
                 console.log('Stopped ProcessOrder');
             });
         },
-        function(){ notifier.message("Exception thrown in *ProcessOrder* ",opts); },
-        function(){ notifier.message(error,opts);}
+        () => { notifier.message("Exception thrown in *ProcessOrder* ",opts); },
+        () => { notifier.message(error,opts);}
     ]);
 });
