@@ -13,8 +13,7 @@ var Exchange = require('../../lib/Exchange/Bitstamp/BitstampExchange.js');
 var assert = require("assert");
 
 var balanceIn = {},
-	orderIn = {},
-	exchangeId = 0;
+	orderIn = {};
 
 OrderProcessor = new OrderProcessor(OrderProcessor,ExchangeManager,Notifier);
 
@@ -24,7 +23,7 @@ describe('OrderProcessor', function(){
 		
 		order = new Order(orderIn);
 		balance = new Balance(balanceIn);
-		exchange = new Exchange(exchangeId);
+		exchange = new Exchange();
 
 		assert.throws(function() {
 			OrderProcessor.makeSureEnoughBalance(balance, order, exchange)
@@ -40,7 +39,7 @@ describe('OrderProcessor', function(){
 
 		order = new Order(orderIn);
 		balance = new Balance(balanceIn);
-		exchange = new Exchange(exchangeId);
+		exchange = new Exchange();
 
 		assert(OrderProcessor.makeSureEnoughBalance(balance, order, exchange) === true);
 		done();
@@ -54,7 +53,7 @@ describe('OrderProcessor', function(){
 
 		order = new Order(orderIn);
 		balance = new Balance(balanceIn);
-		exchange = new Exchange(exchangeId);
+		exchange = new Exchange();
 
 		assert(OrderProcessor.makeSureEnoughBalance(balance, order, exchange) === false);
 		done();
