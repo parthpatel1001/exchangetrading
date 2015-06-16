@@ -4,8 +4,6 @@
 var simple = require('simple-mock');
 var OrderProcessor = require('../../lib/Order/OrderProcessor.js');
 var ExchangeManager = require('../../lib/Exchange/ExchangeManager.js');
-var BalanceTracker = require('../../lib/Balance/BalanceTracker.js');
-var Notifier = require('../../lib/Notification.js');
 var Order = require('../../lib/Order/Order.js');
 var Balance = require('../../lib/Balance/Balance.js');
 var Exchange = require('../../lib/Exchange/Bitstamp/BitstampExchange.js');
@@ -15,7 +13,7 @@ var assert = require("assert");
 var balanceIn = {},
 	orderIn = {};
 
-OrderProcessor = new OrderProcessor(OrderProcessor,ExchangeManager,Notifier);
+OrderProcessor = new OrderProcessor(ExchangeManager);
 
 describe('OrderProcessor', function(){
 	/*
