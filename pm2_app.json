@@ -2,25 +2,16 @@
   "apps": [
     {
       "name": "OrderBookPusher",
-      "script": "app/PushOrderBook.js",
-      "error_file": "./logs/pm2_err.log",
-      "out_file": "./logs/pm2_out.log",
-      "autorestart": false,
-      "cron_restart": "* * * * *" //restart OrderBookPusher every minute
+      "script": "app/PushOrderBook.js"
     },
     {
       "name": "OrderGenerator",
-      "script": "app/GenerateOrder.js",
-      "error_file": "./logs/pm2_err.log",
-      "out_file": "./logs/pm2_out.log",
-      "autorestart": false
+      "script": "app/GenerateOrder.js"
     },
     {
       "name": "OrderProcessor",
       "script": "app/ProcessOrder.js",
-      "error_file": "./logs/pm2_err.log",
-      "out_file": "./logs/pm2_out.log",
-      "autorestart": false
+      "autorestart": false // this process touches real money, lets not restart this automatically
     },
 //    {
 //      "name": "Dashboard",
@@ -38,25 +29,15 @@
 //    },
     {
       "name": "OrderBookTracker",
-      "script": "app/TrackOrderBook.js",
-      "error_file": "./logs/pm2_err.log",
-      "out_file": "./logs/pm2_out.log",
-      "autorestart": false
+      "script": "app/TrackOrderBook.js"
     },
     {
       "name":"StatsD",
-      "script":"app/Statsd.js",
-      "error_file": "./logs/pm2_err.log",
-      "out_file": "./logs/pm2_out.log",
-      "autorestart": false,
-      "cron_restart": "0,30 * * * *" //restart StatsD every 30 minutes
+      "script":"app/Statsd.js"
     },
     {
       "name":"TrackBalance",
-      "script":"app/TrackBalance.js",
-      "error_file": "./logs/pm2_err.log",
-      "out_file": "./logs/pm2_out.log",
-      "autorestart": false
+      "script":"app/TrackBalance.js"
     }
   ]
 }
