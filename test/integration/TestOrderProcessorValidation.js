@@ -18,6 +18,9 @@ var balanceIn = {},
 OrderProcessor = new OrderProcessor(OrderProcessor,ExchangeManager,Notifier);
 
 describe('OrderProcessor', function(){
+	/*
+	** Start makeSureEnoughBalance tests
+	*/
 	it('Should throw error on invalid order',function(done){
 		simple.mock(orderIn, 'orderType', 'INVALID');
 		
@@ -58,4 +61,33 @@ describe('OrderProcessor', function(){
 		assert(OrderProcessor.makeSureEnoughBalance(balance, order, exchange) === false);
 		done();
 	});
+
+	it('Expects to process sell order if enough BTC',function(done){
+		simple.mock(orderIn, 'orderType', 'SELL');
+		simple.mock(orderIn, 'amount', 2);
+		simple.mock(balanceIn, 'btc_avail', 3);
+
+		order = new Order(orderIn);
+		balance = new Balance(balanceIn);
+		exchange = new Exchange();
+
+		assert(OrderProcessor.makeSureEnoughBalance(balance, order, exchange) === true);
+		done();
+	});
+
+	it('Expects to not process sell order if not enough BTC',function(done){
+		simple.mock(orderIn, 'orderType', 'SELL');
+		simple.mock(orderIn, 'amount', 2);
+		simple.mock(balanceIn, 'btc_avail', 1);
+
+		order = new Order(orderIn);
+		balance = new Balance(balanceIn);
+		exchange = new Exchange();
+
+		assert(OrderProcessor.makeSureEnoughBalance(balance, order, exchange) === false);
+		done();
+	});
+	/*
+	** End makeSureEnoughBalance tests
+	*/
 });
