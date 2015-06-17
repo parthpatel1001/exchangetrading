@@ -1,6 +1,7 @@
 var num = require('num');
 var simple = require('simple-mock');
 var Order = require('../../lib/Order/Order.js');
+var Exchange = require('../../lib/Exchange/Bitstamp/BitstampExchange.js');
 
 var assert = require("assert");
 
@@ -36,6 +37,58 @@ describe('Order', function(){
 
 		var order = new Order(orderIn);
 		assert(order.isSellOrder() === false);
+
+		done();
+	});
+
+	it('Should give correct subtotal of order before fee',function(done){
+		var price = 3;
+		var amount = 5;
+		var expectedTotal = price * amount;
+
+		simple.mock(orderIn, 'price', price);
+		simple.mock(orderIn, 'amount', amount);
+
+		var order = new Order(orderIn);
+		assert(order.getMagnitude().cmp(num(expectedTotal)) === 0);
+
+		done();
+	});
+
+	it('Should give correct total after fee if buy order',function(done){
+		var price = 3;
+		var amount = 5;
+
+		simple.mock(orderIn, 'orderType', 'BUY');
+		simple.mock(orderIn, 'amount', amount);
+		simple.mock(orderIn, 'price', price);
+
+		var exchange = new Exchange();
+		var fee = exchange.getFee();
+
+		var expectedTotal = price * amount * (1 + parseFloat(fee));
+
+		var order = new Order(orderIn);
+		assert(order.getCost(fee).cmp(num(expectedTotal)) === 0);
+
+		done();
+	});
+
+	it('Should give correct total after fee if sell order',function(done){
+		var price = 3;
+		var amount = 5;
+
+		simple.mock(orderIn, 'orderType', 'SELL');
+		simple.mock(orderIn, 'amount', amount);
+		simple.mock(orderIn, 'price', price);
+
+		var exchange = new Exchange();
+		var fee = exchange.getFee();
+
+		var expectedTotal = price * amount * (1 - parseFloat(fee));
+
+		var order = new Order(orderIn);
+		assert(order.getCost(fee).cmp(num(expectedTotal)) === 0);
 
 		done();
 	});

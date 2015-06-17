@@ -22,9 +22,9 @@ describe('OrderProcessor', function(){
 	it('Should throw error on invalid order',function(done){
 		simple.mock(orderIn, 'orderType', 'INVALID');
 		
-		order = new Order(orderIn);
-		balance = new Balance(balanceIn);
-		exchange = new Exchange();
+		var order = new Order(orderIn);
+		var balance = new Balance(balanceIn);
+		var exchange = new Exchange();
 
 		assert.throws(function() {
 			OrderProcessor.makeSureEnoughBalance(balance, order, exchange)
@@ -38,9 +38,9 @@ describe('OrderProcessor', function(){
 		simple.mock(orderIn, 'price', 12);
 		simple.mock(balanceIn, 'usd_avail', 300);
 
-		order = new Order(orderIn);
-		balance = new Balance(balanceIn);
-		exchange = new Exchange();
+		var order = new Order(orderIn);
+		var balance = new Balance(balanceIn);
+		var exchange = new Exchange();
 
 		assert(OrderProcessor.makeSureEnoughBalance(balance, order, exchange) === true);
 		done();
@@ -52,9 +52,9 @@ describe('OrderProcessor', function(){
 		simple.mock(orderIn, 'price', 1.2);
 		simple.mock(balanceIn, 'usd_avail', 1);
 
-		order = new Order(orderIn);
-		balance = new Balance(balanceIn);
-		exchange = new Exchange();
+		var order = new Order(orderIn);
+		var balance = new Balance(balanceIn);
+		var exchange = new Exchange();
 
 		assert(OrderProcessor.makeSureEnoughBalance(balance, order, exchange) === false);
 		done();
@@ -65,9 +65,9 @@ describe('OrderProcessor', function(){
 		simple.mock(orderIn, 'amount', 2);
 		simple.mock(balanceIn, 'btc_avail', 3);
 
-		order = new Order(orderIn);
-		balance = new Balance(balanceIn);
-		exchange = new Exchange();
+		var order = new Order(orderIn);
+		var balance = new Balance(balanceIn);
+		var exchange = new Exchange();
 
 		assert(OrderProcessor.makeSureEnoughBalance(balance, order, exchange) === true);
 		done();
@@ -78,9 +78,9 @@ describe('OrderProcessor', function(){
 		simple.mock(orderIn, 'amount', 2);
 		simple.mock(balanceIn, 'btc_avail', 1);
 
-		order = new Order(orderIn);
-		balance = new Balance(balanceIn);
-		exchange = new Exchange();
+		var order = new Order(orderIn);
+		var balance = new Balance(balanceIn);
+		var exchange = new Exchange();
 
 		assert(OrderProcessor.makeSureEnoughBalance(balance, order, exchange) === false);
 		done();
