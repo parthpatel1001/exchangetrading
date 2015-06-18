@@ -12,15 +12,17 @@ OrderSubscriber = new OrderSubscriber(clientMock);
 OrderPublisher = new OrderPublisher(clientMock);
 
 describe('OrderSubscriber', function(){
-	it("Expects subscriber's callback to be called on a publish", function(done){
-		var callback = simple.spy(function() {
+	it("Expects subscriber's callback to be called on a publish, order is an isntance of an Order and is a buy order", function(done){
+		var callback = simple.spy(function(order) {
 			//should run after publish
 			expect(callback.called).to.be(true);
+			expect(order).to.be.an(Order);
+			expect(order.isBuyOrder()).to.be(true);
 			done();
 		});
 
 		var CHANNEL = config.get('EventChannels.LINKED_ORDER_STREAM')
-		var someOrder = new Order({});
+		var someOrder = new Order({'orderType': 'BUY'});
 
 		OrderSubscriber.subscribeToOrderStream(CHANNEL, callback);
 
