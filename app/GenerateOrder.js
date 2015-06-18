@@ -2,9 +2,12 @@ var
     Arbiter = require('../lib/Trading/Arbiter.js'),
     OrderBookSubscriber = require('../lib/OrderBook/OrderBookSubscriber.js'),
     OrderGenerator = require('../lib/Order/OrderGenerator.js'),
-    OrderPublisher = require('../lib/Order/OrderPublisher.js');
+    OrderPublisher = require('../lib/Order/OrderPublisher.js'),
+    var Redis = require("redis");
 
-OrderPublisher = new OrderPublisher();
+var redisClient = Redis.createClient();
+
+OrderPublisher = new OrderPublisher(redisClient);
 
 OrderGenerator = new OrderGenerator();
 OrderGenerator.registerOrderPublisher(OrderPublisher);

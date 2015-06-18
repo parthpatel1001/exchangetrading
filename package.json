@@ -13,6 +13,7 @@
     "bitstamp": "^0.1.9",
     "coinbase-exchange": "git://github.com/parthpatel1001/coinbase-exchange-node.git",
     "config": "^1.13.0",
+    "expect.js": "^0.3.1",
     "mongodb": "^2.0.27",
     "node-statsd": "^0.1.1",
     "num": "^0.3.0",

@@ -6,7 +6,8 @@ var OrderSubscriber = require('../lib/Order/OrderSubscriber.js'),
     config = require('config'),
     Notification = require('../lib/Notification.js'), // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
     async = require('async'),
-    pm2 = require('pm2');
+    pm2 = require('pm2'),
+    var Redis = require("redis");
 
 var coinbase = new CoinbaseExchange(),
     bitstamp = new BitstampExchange();
@@ -18,8 +19,10 @@ for(var i = 0, len = exchanges.length; i < len; i++) {
     ExchangeManager.addExchange(exchanges[i]);
 }
 
+var redisClient = Redis.createClient();
+
 OrderProcessor = new OrderProcessor(ExchangeManager);
-OrderSubscriber = new OrderSubscriber();
+OrderSubscriber = new OrderSubscriber(redisClient);
 
 OrderSubscriber.subscribeToLinkedOrderStream(config.get('EventChannels.LINKED_ORDER_STREAM'),OrderProcessor.processLinkedOrder);
 

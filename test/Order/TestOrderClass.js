@@ -8,7 +8,7 @@ var assert = require("assert");
 var orderIn = {};
 
 describe('Order', function(){
-	it('Should return true on valid buy order or sell order type',function(done){
+	it('Should return true on valid buy order or sell order type',function(){
 		simple.mock(orderIn, 'orderType', 'BUY');
 		var order = new Order(orderIn);
 		assert(order.isBuyOrder() === true);
@@ -16,11 +16,9 @@ describe('Order', function(){
 		simple.mock(orderIn, 'orderType', 'SELL');
 		var order = new Order(orderIn);
 		assert(order.isSellOrder() === true);
-
-		done();
 	});
 
-	it('Should return false on invalid buy order or sell order type',function(done){
+	it('Should return false on invalid buy order or sell order type',function(){
 		simple.mock(orderIn, 'orderType', 'NOTBUY');
 		var order = new Order(orderIn);
 		assert(order.isBuyOrder() === false);
@@ -28,20 +26,16 @@ describe('Order', function(){
 		simple.mock(orderIn, 'orderType', 'NOTSELL');
 		var order = new Order(orderIn);
 		assert(order.isSellOrder() === false);
-
-		done();
 	});
 
-	it('Should catch lower case mistakes',function(done){
+	it('Should catch lower case mistakes',function(){
 		simple.mock(orderIn, 'orderType', 'sell');
 
 		var order = new Order(orderIn);
 		assert(order.isSellOrder() === false);
-
-		done();
 	});
 
-	it('Should give correct subtotal of order before fee',function(done){
+	it('Should give correct subtotal of order before fee',function(){
 		var price = 3;
 		var amount = 5;
 		var expectedTotal = price * amount;
@@ -51,11 +45,9 @@ describe('Order', function(){
 
 		var order = new Order(orderIn);
 		assert(order.getMagnitude().cmp(num(expectedTotal)) === 0);
-
-		done();
 	});
 
-	it('Should give correct total after fee if buy order',function(done){
+	it('Should give correct total after fee if buy order',function(){
 		var price = 3;
 		var amount = 5;
 
@@ -70,11 +62,9 @@ describe('Order', function(){
 
 		var order = new Order(orderIn);
 		assert(order.getCost(fee).cmp(num(expectedTotal)) === 0);
-
-		done();
 	});
 
-	it('Should give correct total after fee if sell order',function(done){
+	it('Should give correct total after fee if sell order',function(){
 		var price = 3;
 		var amount = 5;
 
@@ -89,7 +79,5 @@ describe('Order', function(){
 
 		var order = new Order(orderIn);
 		assert(order.getCost(fee).cmp(num(expectedTotal)) === 0);
-
-		done();
 	});
 });
