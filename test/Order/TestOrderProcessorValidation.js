@@ -28,7 +28,7 @@ describe('OrderProcessor', function(){
 		var exchange = new Exchange();
 
 		var fn = simple.mock(OrderProcessor, 'makeSureEnoughBalance');
-		expect(fn.bind(OrderProcessor, balance, order, exchange)).to.throwError();
+		expect(fn).withArgs(balance, order, exchange).to.throwError();
 	});
 
 	it('Expects true if enough money in balance to cover amount * price',function(){
