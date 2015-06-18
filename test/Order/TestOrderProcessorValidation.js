@@ -9,6 +9,7 @@ var Balance = require('../../lib/Balance/Balance.js');
 var Exchange = require('../../lib/Exchange/Bitstamp/BitstampExchange.js');
 
 var assert = require("assert");
+var expect = require("expect.js");
 
 var balanceIn = {},
 	orderIn = {};
@@ -26,9 +27,8 @@ describe('OrderProcessor', function(){
 		var balance = new Balance(balanceIn);
 		var exchange = new Exchange();
 
-		assert.throws(function() {
-			OrderProcessor.makeSureEnoughBalance(balance, order, exchange);
-		});
+		var fn = simple.mock(OrderProcessor, 'makeSureEnoughBalance');
+		expect(fn.bind(OrderProcessor, balance, order, exchange)).to.throwError();
 	});
 
 	it('Expects true if enough money in balance to cover amount * price',function(){
