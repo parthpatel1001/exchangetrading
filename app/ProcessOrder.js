@@ -7,7 +7,7 @@ var OrderSubscriber = require('../lib/Order/OrderSubscriber.js'),
     Notification = require('../lib/Notification.js'), // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
     async = require('async'),
     pm2 = require('pm2'),
-    var Redis = require("redis");
+    Redis = require("redis");
 
 var coinbase = new CoinbaseExchange(),
     bitstamp = new BitstampExchange();

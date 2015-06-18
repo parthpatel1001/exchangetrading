@@ -3,7 +3,7 @@ var
     OrderBookSubscriber = require('../lib/OrderBook/OrderBookSubscriber.js'),
     OrderGenerator = require('../lib/Order/OrderGenerator.js'),
     OrderPublisher = require('../lib/Order/OrderPublisher.js'),
-    var Redis = require("redis");
+    Redis = require("redis");
 
 var redisClient = Redis.createClient();
 
