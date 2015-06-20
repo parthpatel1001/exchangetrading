@@ -10,11 +10,11 @@ var MockExchange = function() {
 	this.fee = 0.0025;
 };
 
-this.prototype.buy = function(price, amount) {
+MockExchange.prototype.buy = function(price, amount) {
 	console.log("Mock a buy request");
 }
 
-this.prototype.sell = function(price, amount) {
+MockExchange.prototype.sell = function(price, amount) {
 	console.log("Mock a sell request");
 }
 
