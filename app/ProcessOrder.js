@@ -24,7 +24,7 @@ var redisClient = Redis.createClient();
 OrderProcessor = new OrderProcessor(ExchangeManager);
 OrderSubscriber = new OrderSubscriber(redisClient);
 
-OrderSubscriber.subscribeToLinkedOrderStream(config.get('EventChannels.LINKED_ORDER_STREAM'),OrderProcessor.processLinkedOrder);
+OrderSubscriber.subscribeToLinkedOrderStream(OrderProcessor.processLinkedOrder);
 
 process.on('uncaughtException',function(e){
     console.error('Uncaught Exception',e);
