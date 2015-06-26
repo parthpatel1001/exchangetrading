@@ -8,5 +8,4 @@ let orderPublisher = new OrderPublisher(),
 
 let arbiter = new Arbiter(orderGenerator);
 
-let orderBookSubscriber = new OrderBookSubscriber();
-orderBookSubscriber.subscribeToOrderBookTop(arbiter, 'subscribeTo2ExchangeArbOpportunities');
+let orderBookSubscriber = new OrderBookSubscriber(arbiter, 'subscribeTo2ExchangeArbOpportunities');

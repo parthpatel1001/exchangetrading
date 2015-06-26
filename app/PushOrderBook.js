@@ -2,17 +2,19 @@ import async from 'async';
 import config from 'config';
 import pm2 from 'pm2';
 import {Notification} from './Notification'; // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
+import {OrderBookManager} from './OrderBook/OrderBookManager';
+import {CoinbaseOrderBook} from './Exchange/Coinbase/CoinbaseOrderBook';
+import {CoinbaseExchange} from './Exchange/Coinbase/CoinbaseExchange';
+import {BitstampOrderBook} from './Exchange/Bitstamp/BitstampOrderBook';
+import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
+import {OrderBookPusher} from './OrderBook/OrderBookPusher.js';
 
-var
-    CoinbaseOrderBook = require('../lib/Exchange/Coinbase/CoinbaseOrderBook.js'),
-    BitstampOrderBook = require('../lib/Exchange/Bitstamp/BitstampOrderBook.js'),
-    OrderBookManager  = require('../lib/OrderBook/OrderBookManager.js'),
-    OrderBookPusher  = require('../lib/OrderBook/OrderBookPusher.js');
+let orderBookManager = new OrderBookManager();
+// TODO: Are the exchanges really necessary to pass through here? Meaning do the order books really need an exchange prop?
+orderBookManager.addOrderBook(new CoinbaseOrderBook(new CoinbaseExchange()));
+orderBookManager.addOrderBook(new BitstampOrderBook(new BitstampExchange()));
 
-OrderBookManager = new OrderBookManager();
-OrderBookManager.addOrderBook(new CoinbaseOrderBook());
-OrderBookManager.addOrderBook(new BitstampOrderBook());
-OrderBookPusher = new OrderBookPusher(OrderBookManager);
+let orderBookPusher = new OrderBookPusher(orderBookManager);
 
 // Potential TODO: Move this into it's own file / class that can be require'd / init'd by all of the app files?
 var notifier = new Notification();
