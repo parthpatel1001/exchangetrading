@@ -7,4 +7,5 @@ if(process.env.NODE_ENV=='production') {
     process.argv[2] = config.get('Statsd.development_json_location');
 }
 
-import statsd from '../statsd/stats.js'; // TODO: Does this work with the code above?
+// Can't make the below an import because babel will move it above the arg code above which needs to be run before it
+var statsd = require('../statsd/stats.js');
