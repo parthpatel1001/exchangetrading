@@ -1,6 +1,6 @@
 # exchangetrading
 
-[![Build Status](http://54.175.194.132:8080/job/ExchangeTrading/badge/icon)](http://54.175.194.132:8080/job/ExchangeTrading/)
+[![Build Status](http://54.175.194.132:8080/buildStatus/icon?job=ExchangeTrading)](http://54.175.194.132:8080/job/ExchangeTrading/)
 
 ## Install
 
