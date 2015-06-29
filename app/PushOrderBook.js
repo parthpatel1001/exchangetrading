@@ -27,8 +27,9 @@ process.on('uncaughtException', function (e) {
                 console.log('Restarted OrderBookPusher');
             });
         },
-        function(){ notifier.message("Exception thrown in *PushOrderBook* ",opts); },
-        function(){ notifier.message(error,opts);}
+        function(){ notifier.message("Exception thrown in *PushOrderBook* ",opts);},
+        function(){ notifier.message("Error: " + error,opts);},
+        function(){ notifier.message("Trace: " + e.stack,opts);}
     ]);
 });
 
