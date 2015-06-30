@@ -27,10 +27,9 @@ describe('OrderSubscriber', function(){
 			done();
 		});
 
-		var CHANNEL = config.get('EventChannels.LINKED_ORDER_STREAM');
 		var someOrder = new Order({'orderType': 'BUY'});
 
-		OrderSubscriber.subscribeToOrderStream(CHANNEL, callback);
+		OrderSubscriber.subscribeToOrderStream(callback);
 
 		//function is not called before publish
 		expect(callback.called).to.be(false);
