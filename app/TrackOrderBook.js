@@ -1,3 +1,4 @@
+import 'babel/polyfill';
 import {OrderBookSubscriber} from './OrderBook/OrderBookSubscriber';
 import {OrderBookTracker} from './OrderBook/OrderBookTracker.js';
 

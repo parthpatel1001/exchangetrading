@@ -1,3 +1,4 @@
+import 'babel/polyfill';
 import async from 'async';
 import config from 'config';
 import pm2 from 'pm2';

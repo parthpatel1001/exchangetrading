@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "async": "^1.0.0",
+    "babel": "*",
     "bitstamp": "^0.1.9",
     "coinbase-exchange": "git://github.com/parthpatel1001/coinbase-exchange-node.git",
     "config": "^1.13.0",
