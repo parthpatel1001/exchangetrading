@@ -1,4 +1,7 @@
 # exchangetrading
+
+[![Build Status](http://54.175.194.132:8080/buildStatus/icon?job=ExchangeTrading)](http://54.175.194.132:8080/job/ExchangeTrading/)
+
 ## Install
 
 ### Global Installs
@@ -46,3 +49,4 @@ pm2 monit
 
 ### restart process'
 pm2 restart all
+

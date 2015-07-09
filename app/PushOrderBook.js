@@ -33,7 +33,8 @@ process.on('uncaughtException', function (e) {
             });
         },
         () => { notifier.message("Exception thrown in *PushOrderBook* ",opts); },
-        () => { notifier.message(error,opts);}
+        () => { notifier.message("Error: " + error,opts);},
+        () => { notifier.message("Trace: " + e.stack,opts);}
     ]);
 });
 

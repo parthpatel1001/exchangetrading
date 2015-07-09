@@ -39,6 +39,7 @@ process.on('uncaughtException',(e) => {
             });
         },
         () => { notifier.message("Exception thrown in *ProcessOrder* ",opts); },
-        () => { notifier.message(error,opts);}
+        () => { notifier.message("Error: " + error,opts);},
+        () => { notifier.message("Trace: " + e.stack,opts);}
     ]);
 });
