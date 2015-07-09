@@ -20,15 +20,15 @@ process.on('uncaughtException',function(e){
         error = e.toString() || JSON.stringify(e);
 
     async.parallel([
-        function(){
+        () => {
             pm2.connect(function(err){
                 pm2.restart('TrackBalance'); // TODO make this a config, tricky because pm2 wants its own app declaration file
                 notifier.message("Restarted TrackBalance",opts);
                 console.log('Restarted TrackBalance');
             });
         },
-        function(){ notifier.message("Exception thrown in *TrackBalance* ",opts); },
-        function(){ notifier.message("Error: " + error,opts);},
-        function(){ notifier.message("Trace: " + e.stack,opts);}
+        () => { notifier.message("Exception thrown in *TrackBalance* ",opts); },
+        () => { notifier.message("Error: " + error,opts);},
+        () => { notifier.message("Trace: " + e.stack,opts);}
     ]);
 });
