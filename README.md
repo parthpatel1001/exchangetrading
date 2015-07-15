@@ -53,3 +53,11 @@ pm2 restart all
 
 ## To compile down es6
 `gulp babel`
+
+## Node Version
+
+Make sure your node version is
+```
+parthpatel1001@Parths-MBP-2:~/Dropbox/code/exchangetrading (es6) $ node -v
+v0.12.5
+```
