@@ -13,6 +13,7 @@ brew install redis
 npm install pm2 -g
 npm install bower -g
 npm install mocha -g
+npm install gulp -g
 ```
 
 ### Init Git Submodules
@@ -50,3 +51,5 @@ pm2 monit
 ### restart process'
 pm2 restart all
 
+## To compile down es6
+`gulp babel`
