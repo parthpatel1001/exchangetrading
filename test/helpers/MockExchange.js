@@ -1,21 +1,21 @@
-var num = require('num');
+import num from 'num';
 
-var MockExchange = function() {
-	this.name = 'MockExchange';
-	this.exchangeId = 0;
-	this.key = 'key';
-	this.secret = 'secret';
-	this.clientId = 'clientid';
-	this.passphrase = 'passphrase';
-	this.fee = 0.0025;
-};
+export class MockExchange {
+	constructor() {
+        this.name = 'MockExchange';
+        this.exchangeId = 0;
+        this.key = 'key';
+        this.secret = 'secret';
+        this.clientId = 'clientid';
+        this.passphrase = 'passphrase';
+        this.fee = 0.0025;
+    }
 
-MockExchange.prototype.buy = function(price, amount) {
-	console.log("Mock a buy request");
+    buy(price, amount) {
+        console.log("Mock a buy request");
+    }
+
+    sell(price, amount) {
+        console.log("Mock a sell request");
+    }
 }
-
-MockExchange.prototype.sell = function(price, amount) {
-	console.log("Mock a sell request");
-}
-
-module.exports = exports = MockExchange;
