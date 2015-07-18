@@ -1,6 +1,6 @@
 # exchangetrading
 
-[![Build Status](http://54.175.194.132:8080/buildStatus/icon?job=ExchangeTrading)](http://54.175.194.132:8080/job/ExchangeTrading/)
+[![Build Status](http://jenkins.tpitech.io/jenkins/buildStatus/icon?job=exchangetrading-build)](http://jenkins.tpitech.io/jenkins/job/exchangetrading-build/)
 
 ## Install
 
