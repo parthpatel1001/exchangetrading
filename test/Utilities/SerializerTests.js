@@ -10,11 +10,12 @@ describe('Serializer', function(){
             amount = 5,
             order = new BuyOrder(null, price, amount, null);
 
-        let serialized = SerializeObject(order, '../../lib/Order/BuyOrder');
+        SerializeObject(order, './lib/Order/BuyOrder').then((serialized) => {
+            console.log('SerializeObject success', serialized);
 
-        console.log('serialized', serialized);
-
-        assert(serialized instanceof String);
-
+            assert(serialized instanceof String);
+        }).catch((err) => {
+            console.log('SerializeObject err', err);
+        });
     });
 });
