@@ -1,7 +1,11 @@
-import assert from "assert";
-import {OrderBase} from '../../lib/Order/OrderBase';
-import {BuyOrder} from '../../lib/Order/BuyOrder';
-import {SerializeObject} from '../../lib/Utilities/Serializer';
+// import assert from "assert";
+// import {OrderBase} from '../../lib/Order/OrderBase';
+// import {BuyOrder} from '../../lib/Order/BuyOrder';
+// import {SerializeObject} from '../../lib/Utilities/Serializer';
+var assert = require("assert");
+var OrderBase = require('../../lib/Order/OrderBase');
+var BuyOrder = require('../../lib/Order/BuyOrder');
+var SerializeObject = require('../../lib/Utilities/Serializer');
 
 describe('Serializer', function(){
     it('Should return a string version of the passed in very simple object',function(done){
