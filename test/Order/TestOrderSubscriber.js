@@ -22,9 +22,13 @@ describe('OrderSubscriber.subscribeToLinedOrderStream', function(){
 		orderPub= new OrderPublisher();
 	});
 
-	after(function() {
+	afterEach(function() {
 		clientMock.end();
 	});
+
+    //afterEach(function() {
+    //    simple.restore();
+    //});
 
 	it("Should recieve both orders of the right type and be equal", function(done){
 
