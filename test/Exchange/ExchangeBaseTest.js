@@ -1,7 +1,7 @@
 import assert from "assert";
 import {ExchangeBase} from '../../lib/Exchange/ExchangeBase.js';
 
-describe('ExchangeBase', function(){
+describe('ExchangeBase', () => {
     it('Should have the expected properties defined',() => {
         let name = 'hello',
             exchId = 100,
