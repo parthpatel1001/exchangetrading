@@ -11,7 +11,7 @@ var expect = require('expect.js');
 import config from 'config';
 import assert from "assert";
 
-describe('OrderSubscriber.subscribeToLinedOrderStream', function(){
+describe('OrderSubscriber', function(){
     // set these up in global scope
     let clientMock = null;
     var orderSub,orderPub;
@@ -22,8 +22,8 @@ describe('OrderSubscriber.subscribeToLinedOrderStream', function(){
 		orderPub= new OrderPublisher();
 	});
 
-	afterEach(function() {
-		clientMock.end();
+	after(function() {
+		RedisWrapper.end();
 	});
 
     //afterEach(function() {
@@ -68,8 +68,6 @@ describe('OrderSubscriber.subscribeToLinedOrderStream', function(){
             assert(someOrder2.compare(order2));
 			done();
 		});
-
-
 
 		orderSub.subscribeToLinkedOrderStream(config.get('EventChannels.LINKED_ORDER_STREAM'),callback);
 

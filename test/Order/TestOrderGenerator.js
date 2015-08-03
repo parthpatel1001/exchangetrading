@@ -28,8 +28,8 @@ describe('OrderGenerator', function(){
         safetyAmount = orderGen.getSafetyAmount(buyPrice); //0.777.. so we don't spend more than the $7 threshold on a trade
     });
 
-    afterEach(function() {
-        clientMock.end();
+    after(function() {
+        RedisWrapper.end();
     });
 
     it("Asserts that we do not buy more than the safety value", function(){
