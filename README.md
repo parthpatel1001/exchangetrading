@@ -61,3 +61,6 @@ Make sure your node version is
 parthpatel1001@Parths-MBP-2:~/Dropbox/code/exchangetrading (es6) $ node -v
 v0.12.5
 ```
+
+## Run tests using
+mocha test
