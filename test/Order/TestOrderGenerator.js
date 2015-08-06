@@ -3,7 +3,7 @@ var num = require('num');
 import {OrderSubscriber} from '../../lib/Order/OrderSubscriber.js';
 import {OrderPublisher}  from '../../lib/Order/OrderPublisher.js';
 import {OrderGenerator} from '../../lib/Order/OrderGenerator.js';
-import {Order} from '../../lib/Order/OrderBase.js';
+import {OrderBase} from '../../lib/Order/OrderBase.js';
 import {RedisWrapper} from '../../lib/Wrappers/redisWrapper.js';
 var expect = require('expect.js');
 
@@ -13,7 +13,7 @@ describe('OrderGenerator', function(){
     // set these up in global scope
     let clientMock = null;
     var orderSub,orderPub,orderGen,buyPrice,sellPrice,amount,exchangeIds,safetyAmount;
-    before(function() {
+    beforeEach(function() {
         clientMock = redisMock.createClient();
         RedisWrapper.setClient(clientMock);
         orderSub = new OrderSubscriber(clientMock);
@@ -28,8 +28,8 @@ describe('OrderGenerator', function(){
         safetyAmount = orderGen.getSafetyAmount(buyPrice); //0.777.. so we don't spend more than the $7 threshold on a trade
     });
 
-    after(function() {
-        RedisWrapper.end();
+    afterEach(function() {
+        clientMock.end();
     });
 
     it("Asserts that we do not buy more than the safety value", function(){

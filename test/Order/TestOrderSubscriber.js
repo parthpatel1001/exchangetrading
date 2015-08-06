@@ -3,7 +3,6 @@ var redisMock = require('redis-mock');
 import {RedisWrapper} from '../../lib/Wrappers/redisWrapper.js';
 import {OrderSubscriber} from '../../lib/Order/OrderSubscriber.js';
 import {OrderPublisher}  from '../../lib/Order/OrderPublisher.js';
-import {Order} from '../../lib/Order/OrderBase.js';
 import {OrderFactory} from '../../lib/Order/OrderFactory.js';
 import {BuyOrder} from '../../lib/Order/BuyOrder.js';
 import {SellOrder} from '../../lib/Order/SellOrder.js';
@@ -15,23 +14,18 @@ describe('OrderSubscriber', function(){
     // set these up in global scope
     let clientMock = null;
     var orderSub,orderPub;
-    before(function() {
+    beforeEach(function() {
 		clientMock = redisMock.createClient();
         RedisWrapper.setClient(clientMock);
 		orderSub = new OrderSubscriber();
 		orderPub= new OrderPublisher();
 	});
 
-	after(function() {
-		RedisWrapper.end();
+	afterEach(function() {
+		clientMock.end();
 	});
 
-    //afterEach(function() {
-    //    simple.restore();
-    //});
-
-	it("Should recieve both orders of the right type and be equal", function(done){
-
+	it("Should receive both orders of the right type and be equal", function(done){
         var someOrder = OrderFactory.createFromDeSerialized({
             id: 55,
             exchange: 2,
