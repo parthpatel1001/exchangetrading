@@ -17,7 +17,10 @@ let exchangeManager = new ExchangeManager(
 let orderProcessor = new OrderProcessor(exchangeManager),
     orderSubscriber = new OrderSubscriber();
 
-orderSubscriber.subscribeToLinkedOrderStream(config.get('EventChannels.LINKED_ORDER_STREAM'),orderProcessor.processLinkedOrder);
+orderSubscriber.subscribeToLinkedOrderStream(
+    config.get('EventChannels.LINKED_ORDER_STREAM'),
+    orderProcessor.processLinkedOrder
+);
 
 process.on('uncaughtException',(e) => {
     console.error('Uncaught Exception',e);

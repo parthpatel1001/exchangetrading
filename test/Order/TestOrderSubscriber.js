@@ -1,39 +1,73 @@
 var simple = require('simple-mock');
 var redisMock = require('redis-mock');
-var OrderSubscriber = require('../../lib/Order/OrderSubscriber.js');
-var OrderPublisher = require('../../lib/Order/OrderPublisher.js');
-var Order = require('../../lib/Order/Order.js');
+import {RedisWrapper} from '../../lib/Wrappers/redisWrapper.js';
+import {OrderSubscriber} from '../../lib/Order/OrderSubscriber.js';
+import {OrderPublisher}  from '../../lib/Order/OrderPublisher.js';
+import {OrderFactory} from '../../lib/Order/OrderFactory.js';
+import {BuyOrder} from '../../lib/Order/BuyOrder.js';
+import {SellOrder} from '../../lib/Order/SellOrder.js';
 var expect = require('expect.js');
-
-var config = require('config');
+import config from 'config';
+import assert from "assert";
 
 describe('OrderSubscriber', function(){
-	before(function() {
+    // set these up in global scope
+    let clientMock = null;
+    var orderSub,orderPub;
+    beforeEach(function() {
 		clientMock = redisMock.createClient();
-		OrderSubscriber = new OrderSubscriber(clientMock);
-		OrderPublisher = new OrderPublisher(clientMock);
+        RedisWrapper.setClient(clientMock);
+		orderSub = new OrderSubscriber();
+		orderPub= new OrderPublisher();
 	});
 
-	after(function() {
+	afterEach(function() {
 		clientMock.end();
 	});
 
-	it("Expects subscriber's callback to be called on a publish, order is an isntance of an Order and is a buy order", function(done){
-		var callback = simple.spy(function(order) {
+	it("Should receive both orders of the right type and be equal", function(done){
+        var someOrder = OrderFactory.createFromDeSerialized({
+            id: 55,
+            exchange: 2,
+            amount: 100,
+            price: 300,
+            type: 'BUY'
+        });
+
+        var someOrder2 = OrderFactory.createFromDeSerialized({
+            id: 55,
+            exchange: 2,
+            amount: 100,
+            price: 300,
+            type: 'SELL'
+        });
+
+		var callback = simple.spy(function(order,order2) {
 			//should run after publish
 			expect(callback.called).to.be(true);
-			expect(order).to.be.an(Order);
-			expect(order.isBuyOrder()).to.be(true);
+            // make sure the types are correct
+			expect(order instanceof BuyOrder).to.be(true);
+            expect(order2 instanceof SellOrder).to.be(true);
+            /**
+                make sure they did not mutate getting passed around
+                this gets tricky, this assumes our callback behaves like:
+                send(BUYORDER,SELLORDER)
+                serialize-> "[BUYORDER,SELLORDER]"
+                deserailize -> o1 = BUYORDER, o2 = SELLORDER
+                callback(o1,o2)
+                i.e. this test is making sure *deserialize* happens in the
+                exact same order when it was an array
+             */
+            assert(someOrder.compare(order));
+            assert(someOrder2.compare(order2));
 			done();
 		});
 
-		var someOrder = new Order({'orderType': 'BUY'});
-
-		OrderSubscriber.subscribeToOrderStream(callback);
+		orderSub.subscribeToLinkedOrderStream(config.get('EventChannels.LINKED_ORDER_STREAM'),callback);
 
 		//function is not called before publish
 		expect(callback.called).to.be(false);
 
-		OrderPublisher.publishNewOrder(someOrder);
+		orderPub.publishLinkedOrders(someOrder,someOrder2);
 	});
 });

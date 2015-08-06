@@ -1,2 +1,2 @@
 --require babel/register
-test/Order
+test/**/*.js

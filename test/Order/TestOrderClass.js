@@ -6,8 +6,6 @@ import {BuyOrder} from '../../lib/Order/BuyOrder';
 import {SellOrder} from '../../lib/Order/SellOrder';
 import {BitstampExchange} from '../../lib/Exchange/Bitstamp/BitstampExchange';
 
-var orderIn = {};
-
 describe('Order', function(){
 	it('Should give correct subtotal of order before fee',function(){
 		let price = 3,
