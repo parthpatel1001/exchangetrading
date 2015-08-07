@@ -1,15 +1,13 @@
-/**
- * Created by parthpatel1001 on 7/29/15.
- */
 import assert from "assert";
 import {OrderFactory} from '../../lib/Order/OrderFactory.js';
 import {BuyOrder} from '../../lib/Order/BuyOrder.js';
 import {SellOrder} from '../../lib/Order/SellOrder.js';
+
 describe('OrderFactory.createFromDeserialized',function(){
     it('Should create a buy order if provided a BUY order type',function(){
        let order = {
            id: 55,
-           exchange: 2,
+           exchange: '{"exchangeId": 0}',
            amount: 100,
            price: 300,
            type: 'BUY'
@@ -21,7 +19,7 @@ describe('OrderFactory.createFromDeserialized',function(){
     it('Should create a sell order if provided a SELL order type',function(){
         let order = {
             id: 55,
-            exchange: 2,
+            exchange: '{"exchangeId": 0}',
             amount: 100,
             price: 300,
             type: 'SELL'
@@ -78,7 +76,7 @@ describe('OrderFactory.createFromDeserialized',function(){
     it('Should create a sell order if provided a SELL order type',function(){
         let order = {
             id: 55,
-            exchange: 2,
+            exchange: '{"exchangeId": 0}',
             amount: 100,
             price: 300,
             type: 'SELL'
@@ -89,14 +87,24 @@ describe('OrderFactory.createFromDeserialized',function(){
 
 });
 
-describe('OrderFactory.createBuyOrder',function(){
-    it('Should create a buy order, regardless of input data',function(){
-        assert(OrderFactory.createBuyOrder({}) instanceof BuyOrder);
-        assert(OrderFactory.createBuyOrder({type: 'SELL'}) instanceof BuyOrder);
+describe('OrderFactory.create____Order',function(){
+    it('Should create a buy order, given at least an exchange with it',function(){
+        assert(OrderFactory.createBuyOrder({
+                exchange: '{"exchangeId": 0}'
+            }) instanceof BuyOrder);
+        assert(OrderFactory.createBuyOrder({
+                exchange: '{"exchangeId": 0}',
+                type: 'SELL'
+           }) instanceof BuyOrder);
     });
 
-    it('Should create a sell order, regardless of input data',function(){
-        assert(OrderFactory.createSellOrder({}) instanceof SellOrder);
-        assert(OrderFactory.createSellOrder({type: 'BUY'}) instanceof SellOrder);
+    it('Should create a sell order, given at least an exchange with it',function(){
+        assert(OrderFactory.createSellOrder({
+                exchange: '{"exchangeId": 0}'
+            }) instanceof SellOrder);
+        assert(OrderFactory.createSellOrder({
+                exchange: '{"exchangeId": 0}',
+                type: 'BUY'
+            }) instanceof SellOrder);
     });
 });
