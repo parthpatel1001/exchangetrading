@@ -16,7 +16,7 @@ describe('OrderSubscriber', function(){
     var orderSub,orderPub;
     beforeEach(function() {
 		clientMock = redisMock.createClient();
-        RedisWrapper.setClient(clientMock);
+        RedisWrapper.setClients(clientMock, clientMock);
 		orderSub = new OrderSubscriber();
 		orderPub= new OrderPublisher();
 	});

@@ -15,9 +15,9 @@ describe('OrderGenerator', function(){
     var orderSub,orderPub,orderGen,buyPrice,sellPrice,amount,exchangeIds,safetyAmount;
     beforeEach(function() {
         clientMock = redisMock.createClient();
-        RedisWrapper.setClient(clientMock);
-        orderSub = new OrderSubscriber(clientMock);
-        orderPub = new OrderPublisher(clientMock);
+        RedisWrapper.setClients(clientMock, clientMock);
+        orderSub = new OrderSubscriber();
+        orderPub = new OrderPublisher();
         orderGen = new OrderGenerator(orderPub);
 
         //dummy data to be used for tests
@@ -25,7 +25,6 @@ describe('OrderGenerator', function(){
         sellPrice = num(7);
         amount = num(13);
         exchangeIds = [0,1];
-        safetyAmount = orderGen.getSafetyAmount(buyPrice); //0.777.. so we don't spend more than the $7 threshold on a trade
     });
 
     afterEach(function() {
