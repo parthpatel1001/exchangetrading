@@ -34,11 +34,10 @@
     {
       "name":"StatsD",
       "script":"es5/Statsd.js"
+    },
+    {
+      "name":"TrackBalance",
+      "script":"es5/TrackBalance.js"
     }
-    //  ,
-    //    {
-    //      "name":"TrackBalance",
-    //      "script":"es5/TrackBalance.js"
-    //    }
   ]
 }
