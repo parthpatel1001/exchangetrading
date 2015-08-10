@@ -12,23 +12,25 @@ import assert from "assert";
 
 describe('OrderSubscriber', function(){
     // set these up in global scope
-    let clientMock = null;
+    let clientMock = null, clientMock2 = null;
     var orderSub,orderPub;
     beforeEach(function() {
 		clientMock = redisMock.createClient();
-        RedisWrapper.setClients(clientMock, clientMock);
+        clientMock2 = redisMock.createClient();
+        RedisWrapper.setClients(clientMock, clientMock2);
 		orderSub = new OrderSubscriber();
 		orderPub= new OrderPublisher();
 	});
 
 	afterEach(function() {
 		clientMock.end();
+        clientMock2.end();
 	});
 
 	it("Should receive both orders of the right type and be equal", function(done){
         var someOrder = OrderFactory.createFromDeSerialized({
             id: 55,
-            exchange: 2,
+            exchange: '{"exchangeId": 1}',
             amount: 100,
             price: 300,
             type: 'BUY'
@@ -36,7 +38,7 @@ describe('OrderSubscriber', function(){
 
         var someOrder2 = OrderFactory.createFromDeSerialized({
             id: 55,
-            exchange: 2,
+            exchange: '{"exchangeId": 1}',
             amount: 100,
             price: 300,
             type: 'SELL'
