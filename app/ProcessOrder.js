@@ -2,11 +2,12 @@ import 'babel/polyfill';
 import config from 'config';
 import async from 'async';
 import pm2 from 'pm2';
+import {BalanceTracker} from './Balance/BalanceTracker.js'
 import {OrderProcessor} from './Order/OrderProcessor';
 import {OrderSubscriber} from './Order/OrderSubscriber';
 import {Notification} from'./Notification'; // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
 
-let orderProcessor = new OrderProcessor(),
+let orderProcessor = new OrderProcessor(new BalanceTracker()),
     orderSubscriber = new OrderSubscriber();
 
 orderSubscriber.subscribeToLinkedOrderStream(
