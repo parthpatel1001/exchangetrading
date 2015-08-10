@@ -1,14 +1,11 @@
-/**
- * Created by parthpatel1001 on 7/29/15.
- */
 import {OrderFactory} from '../../lib/Order/OrderFactory.js';
 import assert from "assert";
 
-describe('SellOrder',function(){
-    it('Should serialize with a SELL type',function(){
+describe('SellOrder',() => {
+    it('Should serialize with a SELL type',() => {
         let order = {
             id: 55,
-            exchange: 2,
+            exchange: '{"exchangeId": 1}',
             amount: 100,
             price: 300,
             type: 'SELL'
@@ -24,6 +21,4 @@ describe('SellOrder',function(){
         assert(raw.type === 'SELL','type was not buy');
 
     });
-});/**
- * Created by parthpatel1001 on 7/29/15.
- */
+});
