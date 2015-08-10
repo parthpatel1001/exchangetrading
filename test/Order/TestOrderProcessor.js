@@ -1,19 +1,15 @@
-/**
-* Created by parthpatel1001 on 6/1/15.
-*/
-var simple = require('simple-mock');
+import simple from 'simple-mock';
 import {OrderProcessor} from '../../lib/Order/OrderProcessor.js';
-import {ExchangeManager} from '../../lib/Exchange/ExchangeManager.js';
 import {OrderFactory} from '../../lib/Order/OrderFactory.js';
 import {Balance} from '../../lib/Balance/Balance.js';
 import {BitstampExchange} from '../../lib/Exchange/Bitstamp/BitstampExchange.js';
 import assert from "assert";
-var expect = require("expect.js");
+import expect from "expect.js";
 
 var balanceIn = {},
 	orderIn = {};
 
-var orderProcessor = new OrderProcessor(ExchangeManager);
+var orderProcessor = new OrderProcessor();
 
 describe('OrderProcessor', function(){
 	/*
