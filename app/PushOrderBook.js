@@ -1,18 +1,23 @@
-var
-    CoinbaseOrderBook = require('../lib/Exchange/Coinbase/CoinbaseOrderBook.js'),
-    BitstampOrderBook = require('../lib/Exchange/Bitstamp/BitstampOrderBook.js'),
-    OrderBookManager  = require('../lib/OrderBook/OrderBookManager.js'),
-    OrderBookPusher  = require('../lib/OrderBook/OrderBookPusher.js'),
-    config = require('config'),
-    Notification = require('../lib/Notification.js'), // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
-    async = require('async'),
-    pm2 = require('pm2');
+import 'babel/polyfill';
+import async from 'async';
+import config from 'config';
+import pm2 from 'pm2';
+import {Notification} from './Notification'; // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
+import {OrderBookManager} from './OrderBook/OrderBookManager';
+import {CoinbaseOrderBook} from './Exchange/Coinbase/CoinbaseOrderBook';
+import {CoinbaseExchange} from './Exchange/Coinbase/CoinbaseExchange';
+import {BitstampOrderBook} from './Exchange/Bitstamp/BitstampOrderBook';
+import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
+import {OrderBookPusher} from './OrderBook/OrderBookPusher.js';
 
-OrderBookManager = new OrderBookManager();
-OrderBookManager.addOrderBook(new CoinbaseOrderBook());
-OrderBookManager.addOrderBook(new BitstampOrderBook());
-OrderBookPusher = new OrderBookPusher(OrderBookManager);
+let orderBookManager = new OrderBookManager();
+// TODO: Are the exchanges really necessary to pass through here? Meaning do the order books really need an exchange prop?
+orderBookManager.addOrderBook(new CoinbaseOrderBook(new CoinbaseExchange()));
+orderBookManager.addOrderBook(new BitstampOrderBook(new BitstampExchange()));
 
+let orderBookPusher = new OrderBookPusher(orderBookManager);
+
+// Potential TODO: Move this into it's own file / class that can be require'd / init'd by all of the app files?
 var notifier = new Notification();
 var opts = config.get('Notification.Slack.error_config');
 process.on('uncaughtException', function (e) {
@@ -20,16 +25,16 @@ process.on('uncaughtException', function (e) {
     var error = e.toString() || JSON.stringify(e);
 
     async.parallel([
-        function(){
-            pm2.connect(function(err){
+        () =>{
+            pm2.connect((err) => {
                 pm2.restart('OrderBookPusher'); // TODO make this a config, tricky because pm2 wants its own app declaration file
                 notifier.message("Restarted OrderBookPusher",opts);
                 console.log('Restarted OrderBookPusher');
             });
         },
-        function(){ notifier.message("Exception thrown in *PushOrderBook* ",opts);},
-        function(){ notifier.message("Error: " + error,opts);},
-        function(){ notifier.message("Trace: " + e.stack,opts);}
+        () => { notifier.message("Exception thrown in *PushOrderBook* ",opts); },
+        () => { notifier.message("Error: " + error,opts);},
+        () => { notifier.message("Trace: " + e.stack,opts);}
     ]);
 });
 

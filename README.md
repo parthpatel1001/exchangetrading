@@ -13,6 +13,7 @@ brew install redis
 npm install pm2 -g
 npm install bower -g
 npm install mocha -g
+npm install gulp -g
 ```
 
 ### Init Git Submodules
@@ -50,4 +51,16 @@ pm2 monit
 ### restart process'
 pm2 restart all
 
-test
+## To compile down es6
+`gulp babel`
+
+## Node Version
+
+Make sure your node version is
+```
+parthpatel1001@Parths-MBP-2:~/Dropbox/code/exchangetrading (es6) $ node -v
+v0.12.5
+```
+
+## Run tests using
+mocha

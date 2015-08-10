@@ -1,19 +1,20 @@
-var
-    Arbiter = require('../lib/Trading/Arbiter.js'),
-    OrderBookSubscriber = require('../lib/OrderBook/OrderBookSubscriber.js'),
-    OrderGenerator = require('../lib/Order/OrderGenerator.js'),
-    OrderPublisher = require('../lib/Order/OrderPublisher.js'),
-    Redis = require("redis");
+import 'babel/polyfill';
+import {Arbiter} from './Trading/Arbiter';
+import {OrderBookSubscriber} from './OrderBook/OrderBookSubscriber';
+import {OrderGenerator} from './Order/OrderGenerator';
+import {OrderPublisher} from './Order/OrderPublisher';
+import {CoinbaseExchange} from './Exchange/Coinbase/CoinbaseExchange';
+import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
+import {ExchangeManager} from './Exchange/ExchangeManager';
 
-var redisClient = Redis.createClient();
+let exchangeManager = new ExchangeManager(
+    new CoinbaseExchange(),
+    new BitstampExchange()
+);
 
-OrderPublisher = new OrderPublisher(redisClient);
+let orderPublisher = new OrderPublisher(),
+    orderGenerator = new OrderGenerator(orderPublisher);
 
-OrderGenerator = new OrderGenerator();
-OrderGenerator.registerOrderPublisher(OrderPublisher);
+let arbiter = new Arbiter(orderGenerator);
 
-Arbiter = new Arbiter();
-Arbiter.registerOrderGenerator(OrderGenerator);
-
-OrderBookSubscriber = new OrderBookSubscriber();
-OrderBookSubscriber.subscribeToOrderBookTop(Arbiter.subscribeTo2ExchangeArbOppurtunities);
+let orderBookSubscriber = new OrderBookSubscriber(exchangeManager, arbiter, 'subscribeTo2ExchangeArbOpportunities');
