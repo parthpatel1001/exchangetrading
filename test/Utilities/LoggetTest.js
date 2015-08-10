@@ -10,24 +10,19 @@ describe('Logger',function(){
     afterEach(function() {
         simple.restore();
     });
-    it("Should log if the env is DEBUG",function(){
+    it("Should log if env is set to DEBUG",function(){
         process.env.LOG_LEVEL = 'DEBUG';
-        console.log = simple.spy(function(){
-            var args = Array.prototype.slice.call(arguments);
-            expect(console.log.called).to.be(true);
-            assert(args.indexOf('test') !== -1);
-            assert(args.indexOf('me') !== -1);
 
-        });
+        var spy = simple.mock(console, 'log');
         Logger.log('test','me');
+        expect(spy.called).to.be(true);
     });
 
-    it("Should log if the env is DEBUG",function(){
+    it("Should not log if env is not set to DEBUG",function(){
         process.env.LOG_LEVEL = '';
-        console.log = simple.spy(function(){
-            var args = Array.prototype.slice.call(arguments);
-            expect(console.log.called).to.be(false);
-        });
+
+        var spy = simple.mock(console, 'log');
         Logger.log(['a','b','c']);
+        expect(spy.called).to.be(false);
     });
 });
