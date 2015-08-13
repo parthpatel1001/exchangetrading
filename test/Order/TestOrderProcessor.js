@@ -7,6 +7,7 @@ import {Balance} from '../../lib/Balance/Balance.js';
 import {BitstampExchange} from '../../lib/Exchange/Bitstamp/BitstampExchange.js';
 import assert from "assert";
 import expect from "expect.js";
+import async from 'async';
 
 var balanceIn = {},
 	orderIn = {};
@@ -14,6 +15,11 @@ var balanceIn = {},
 var orderProcessor;
 
 describe('OrderProcessor', () => {
+   
+    afterEach(function() {
+        simple.restore();
+    });
+
 	/*
 	** Start makeSureEnoughBalance tests
 	*/
@@ -67,35 +73,28 @@ describe('OrderProcessor', () => {
         orderProcessor.processLinkedOrder(order, order);
     });
 
-    it('Exchange.ProcessOrder should never be called if not enough money in balance to cover amount * price', (done) => {
+    it('Exchange.ProcessOrder should never be called if not enough money in balance to cover amount * price', () => {
         var order = OrderFactory.createBuyOrder({
             exchange: '{"exchangeId": 1}',
             amount: 3,
             price: 12
         });
-        var exchange = new BitstampExchange();
-        exchange.processOrder = () => {
-            assert(false);
-            done();
-        };
-        order.exchange = exchange;
 
-        let timeout = null;
+        var processOrderSpy = simple.mock(BitstampExchange, 'processOrder');
+        var parallelSpy = simple.mock(async, 'parallel');
+
         let balTracker = {
             retrieveBalance: (ex, cb) => {
                 var balance = Balance.createFromPlainObject({usd_avail:1,btc_avail:5,exchange_id:1});
-
-                // Need to setup a way to tell the test to stop waiting to see if processOrder is ever going to be called
-                timeout == null ? timeout = setTimeout(() => {
-                        done();
-                    },
-                1000) : null;
 
                 cb(null, balance);
             }
         };
         orderProcessor = new OrderProcessor(balTracker);
         orderProcessor.processLinkedOrder(order, order);
+
+        expect(parallelSpy.callCount).to.equal(2);
+        expect(processOrderSpy.called).to.be(false);
     });
 
     it('Exchange.ProcessOrder should be called with a SellOrder if enough BTC', (done) =>{
@@ -126,35 +125,28 @@ describe('OrderProcessor', () => {
         orderProcessor.processLinkedOrder(order, order);
     });
 
-    it('Exchange.ProcessOrder should never be called if not enough BTC in balance to cover amount * price', (done) => {
+    it('Exchange.ProcessOrder should never be called if not enough BTC in balance to cover amount * price', () => {
         var order = OrderFactory.createSellOrder({
             exchange: '{"exchangeId": 1}',
             amount: 3,
             price: 12
         });
-        var exchange = new BitstampExchange();
-        exchange.processOrder = () => {
-            assert(false);
-            done();
-        };
-        order.exchange = exchange;
+        
+        var processOrderSpy = simple.mock(BitstampExchange, 'processOrder');
+        var parallelSpy = simple.mock(async, 'parallel');
 
-        let timeout = null;
         let balTracker = {
             retrieveBalance: (ex, cb) => {
                 var balance = Balance.createFromPlainObject({usd_avail:1,btc_avail:1,exchange_id:1});
-
-                // Need to setup a way to tell the test to stop waiting to see if processOrder is ever going to be called
-                timeout == null ? timeout = setTimeout(() => {
-                        done();
-                    },
-                    1000) : null;
 
                 cb(null, balance);
             }
         };
         orderProcessor = new OrderProcessor(balTracker);
         orderProcessor.processLinkedOrder(order, order);
+
+        expect(parallelSpy.callCount).to.equal(2);
+        expect(processOrderSpy.called).to.be(false);
     });
 
 	/*
