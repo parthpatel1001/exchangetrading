@@ -1,6 +1,6 @@
 # exchangetrading
 
-[![Build Status](http://54.175.194.132:8080/buildStatus/icon?job=ExchangeTrading)](http://54.175.194.132:8080/job/ExchangeTrading/)
+[![Build Status](http://jenkins.tpitech.io/jenkins/buildStatus/icon?job=exchangetrading-build)](http://jenkins.tpitech.io/jenkins/job/exchangetrading-build/)
 
 ## Install
 
@@ -61,3 +61,6 @@ Make sure your node version is
 parthpatel1001@Parths-MBP-2:~/Dropbox/code/exchangetrading (es6) $ node -v
 v0.12.5
 ```
+
+## Run tests using
+mocha
