@@ -15,7 +15,7 @@ describe('LosingStrategy', () => {
 		let ls = new LosingStrategy();
 		let exSpy = simple.mock(LosingStrategy, 'execute');
 		
-		ls.process('BUY', null, null, 0);
+		ls.process(BUY_ORDER_TYPE, null, null, 0);
 		expect(exSpy.called).to.be(false);
 	});
 
