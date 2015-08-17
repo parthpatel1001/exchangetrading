@@ -71,5 +71,21 @@
       "trade_fee": 0.0025,
       "use_live_orderbook": false
     }
+  },
+  "Rebalance":{
+    "LosingStrategy":{
+      "Thresholds": {
+        "16": {"trade_amount": 0.5, "loss_ratio": 0.0015},
+        "17": {"trade_amount": 0.5, "loss_ratio": 0.0023},
+        "18": {"trade_amount": 0.5, "loss_ratio": 0.0030},
+        "19": {"trade_amount": 0.5, "loss_ratio": 0.0038},
+        "20": {"trade_amount": 0.5, "loss_ratio": 0.0045},
+        "21": {"trade_amount": 0.5, "loss_ratio": 0.0053},
+        "22": {"trade_amount": 0.5, "loss_ratio": 0.0060},
+        "23": {"trade_amount": 0.5, "loss_ratio": 0.0068},
+        "24": {"trade_amount": 0.5, "loss_ratio": 0.0075},
+        "25": {"trade_amount": 1, "loss_ratio": 0} //change this later
+      }
+    }
   }
 }
