@@ -74,6 +74,8 @@
   },
   "Rebalance":{
     "LosingStrategy":{
+      "Start": 16,
+      "Timeout": 26,
       "Thresholds": {
         "16": {"trade_amount": 0.5, "loss_ratio": 0.0015},
         "17": {"trade_amount": 0.5, "loss_ratio": 0.0023},

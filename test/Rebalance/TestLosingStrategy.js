@@ -22,7 +22,7 @@ describe('LosingStrategy', () => {
 	it('Should execute trade with correct amounts on the 16hr mark', () => {
 		let ls = new LosingStrategy();
 		let exId = 0, usdAvail = 10, bcAvail = 0, timePassed = 16;
-		let configUsed = ls.processConf[timePassed];
+		let configUsed = ls.thresholds[timePassed];
 		let ofSpy = simple.mock(OrderFactory, 'createFromDeSerialized');
 		
 		let mockTick = {
