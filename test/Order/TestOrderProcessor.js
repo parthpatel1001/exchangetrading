@@ -23,7 +23,7 @@ describe('OrderProcessor', () => {
 	/*
 	** Start makeSureEnoughBalance tests
 	*/
-    it('.processLinkedOrder() Should throw error on invalid order',function(){
+    it('.processLinkedOrder() Should throw error on invalid order',(done) => {
 		simple.mock(orderIn, 'orderType', 'INVALID');
 
 		var balance = new Balance(balanceIn);
@@ -41,8 +41,15 @@ describe('OrderProcessor', () => {
             }
         };
         orderProcessor = new OrderProcessor(balTracker);
-        var fn = simple.mock(orderProcessor, 'processLinkedOrder');
-        expect(fn).withArgs(balance, order, exchange).to.throwError();
+
+
+        orderProcessor.processLinkedOrder(order, order).then(() => {
+            assert(false);
+            done();
+        }).catch((err) => {
+            assert(err == 'Error: Bad order type: undefined');
+            done();
+        });
     });
 
     it('Exchange.ProcessOrder should be called with a BuyOrder if enough money in balance to cover amount * price', (done) => {
@@ -73,7 +80,7 @@ describe('OrderProcessor', () => {
         orderProcessor.processLinkedOrder(order, order);
     });
 
-    it('Exchange.ProcessOrder should never be called if not enough money in balance to cover amount * price', () => {
+    it('Exchange.ProcessOrder should never be called if not enough money in balance to cover amount * price', (done) => {
         var order = OrderFactory.createBuyOrder({
             exchange: '{"exchangeId": 1}',
             amount: 3,
@@ -81,7 +88,6 @@ describe('OrderProcessor', () => {
         });
 
         var processOrderSpy = simple.mock(BitstampExchange, 'processOrder');
-        var parallelSpy = simple.mock(async, 'parallel');
 
         let balTracker = {
             retrieveBalance: (ex, cb) => {
@@ -91,10 +97,14 @@ describe('OrderProcessor', () => {
             }
         };
         orderProcessor = new OrderProcessor(balTracker);
-        orderProcessor.processLinkedOrder(order, order);
-
-        expect(parallelSpy.callCount).to.equal(2);
-        expect(processOrderSpy.called).to.be(false);
+        orderProcessor.processLinkedOrder(order, order).then(() => {
+            assert(false); // If the promise was resolved rather than rejected for some reason, fail the test
+            done();
+        }).catch((err) => {
+            expect(processOrderSpy.called).to.be(false);
+            assert(err === 'makeSureEnoughBalance returned insufficient balance');
+            done();
+        });
     });
 
     it('Exchange.ProcessOrder should be called with a SellOrder if enough BTC', (done) =>{
@@ -133,7 +143,6 @@ describe('OrderProcessor', () => {
         });
         
         var processOrderSpy = simple.mock(BitstampExchange, 'processOrder');
-        var parallelSpy = simple.mock(async, 'parallel');
 
         let balTracker = {
             retrieveBalance: (ex, cb) => {
@@ -143,10 +152,14 @@ describe('OrderProcessor', () => {
             }
         };
         orderProcessor = new OrderProcessor(balTracker);
-        orderProcessor.processLinkedOrder(order, order);
-
-        expect(parallelSpy.callCount).to.equal(2);
-        expect(processOrderSpy.called).to.be(false);
+        orderProcessor.processLinkedOrder(order, order).then(() => {
+            assert(false); // If the promise was resolved rather than rejected for some reason, fail the test
+            done();
+        }).catch((err) => {
+            expect(processOrderSpy.called).to.be(false);
+            assert(err === 'makeSureEnoughBalance returned insufficient balance');
+            done();
+        });
     });
 
 	/*
