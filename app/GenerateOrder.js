@@ -17,4 +17,4 @@ let orderPublisher = new OrderPublisher(),
 
 let arbiter = new Arbiter(orderGenerator);
 
-let orderBookSubscriber = new OrderBookSubscriber(exchangeManager, arbiter, 'subscribeTo2ExchangeArbOpportunities');
+let orderBookSubscriber = new OrderBookSubscriber(exchangeManager, arbiter, 'processOpportunities');
