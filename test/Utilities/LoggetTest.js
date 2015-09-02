@@ -7,7 +7,7 @@ describe('Logger',function(){
     afterEach(function() {
         simple.restore();
     });
-    it("Should log if env is set to DEBUG",function(){
+    it("Should log if env is set to DEBUG",() => {
         process.env.LOG_LEVEL = 'DEBUG';
 
         var spy = simple.mock(console, 'log');
@@ -15,7 +15,7 @@ describe('Logger',function(){
         expect(spy.called).to.be(true);
     });
 
-    it("Should not log if env is not set to DEBUG",function(){
+    it("Should not log if env is not set to DEBUG",() => {
         process.env.LOG_LEVEL = '';
 
         var spy = simple.mock(console, 'log');
