@@ -2,13 +2,15 @@ import 'babel/polyfill';
 import async from 'async';
 import config from 'config';
 import pm2 from 'pm2';
-import {Notification} from './Notification'; // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
 import {OrderBookManager} from './OrderBook/OrderBookManager';
 import {CoinbaseOrderBook} from './Exchange/Coinbase/CoinbaseOrderBook';
 import {CoinbaseExchange} from './Exchange/Coinbase/CoinbaseExchange';
 import {BitstampOrderBook} from './Exchange/Bitstamp/BitstampOrderBook';
 import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
 import {OrderBookPusher} from './OrderBook/OrderBookPusher.js';
+import {Notification, NotificationLevels} from './Notification';
+
+Notification.eventTriggered("Application Start Up", "PushOrderBook", "", NotificationLevels.HIGH);
 
 let orderBookManager = new OrderBookManager();
 // TODO: Are the exchanges really necessary to pass through here? Meaning do the order books really need an exchange prop?

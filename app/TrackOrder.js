@@ -1,3 +1,3 @@
-/**
- * Created by parthpatel1001 on 5/17/15.
- */
+import {Notification, NotificationLevels} from './Notification';
+
+Notification.eventTriggered("Application Start Up", "TrackOrder", "", NotificationLevels.HIGH);
