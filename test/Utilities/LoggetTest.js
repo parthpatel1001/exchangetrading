@@ -1,10 +1,7 @@
-/**
- * Created by parthpatel1001 on 8/3/15.
- */
-import {Logger} from '../../lib/Utilities/Logger.js';
-var expect = require('expect.js');
+import {Logger} from '../../lib/Logging/Logger.js';
+import expect from 'expect.js';
 import assert from "assert";
-var simple = require('simple-mock');
+import simple from 'simple-mock';
 
 describe('Logger',function(){
     afterEach(function() {
