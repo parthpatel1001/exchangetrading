@@ -7,7 +7,7 @@ import {OrderProcessor} from './Order/OrderProcessor';
 import {OrderSubscriber} from './Order/OrderSubscriber';
 import {Notification, NotificationLevels} from './Notification';
 
-Notification.eventTriggered("Application Start Up", "ProcessOrder", "", NotificationLevels.HIGH);
+Notification.eventTriggered("Application Start Up", { AppName: "ProcessOrder" }, "", NotificationLevels.HIGH);
 
 let orderProcessor = new OrderProcessor(new BalanceTracker()),
     orderSubscriber = new OrderSubscriber();

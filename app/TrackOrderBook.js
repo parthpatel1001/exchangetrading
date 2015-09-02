@@ -6,7 +6,7 @@ import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
 import {ExchangeManager} from './Exchange/ExchangeManager';
 import {Notification, NotificationLevels} from './Notification';
 
-Notification.eventTriggered("Application Start Up", "TrackOrderBook", "", NotificationLevels.HIGH);
+Notification.eventTriggered("Application Start Up", { AppName: "TrackOrderBook" }, "", NotificationLevels.HIGH);
 
 let exchangeManager = new ExchangeManager(
     new CoinbaseExchange(),

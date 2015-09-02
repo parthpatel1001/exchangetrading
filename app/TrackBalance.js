@@ -7,7 +7,7 @@ import {CoinbaseExchange} from './Exchange/Coinbase/CoinbaseExchange';
 import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
 import {Notification, NotificationLevels} from './Notification';
 
-Notification.eventTriggered("Application Start Up", "TrackBalance", "", NotificationLevels.HIGH);
+Notification.eventTriggered("Application Start Up", { AppName: "TrackBalance" }, "", NotificationLevels.HIGH);
 
 let coinbase = new CoinbaseExchange(),
     bitstamp = new BitstampExchange();

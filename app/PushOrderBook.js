@@ -10,7 +10,7 @@ import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
 import {OrderBookPusher} from './OrderBook/OrderBookPusher.js';
 import {Notification, NotificationLevels} from './Notification';
 
-Notification.eventTriggered("Application Start Up", "PushOrderBook", "", NotificationLevels.HIGH);
+Notification.eventTriggered("Application Start Up", { AppName: "PushOrderBook" }, "", NotificationLevels.HIGH);
 
 let orderBookManager = new OrderBookManager();
 // TODO: Are the exchanges really necessary to pass through here? Meaning do the order books really need an exchange prop?
