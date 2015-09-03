@@ -56,7 +56,7 @@ describe('OrderProcessor', () => {
 		var order = OrderFactory.createBuyOrder({
             exchange: '{"exchangeId": 1}',
             amount: 3,
-            price: 12
+            price: 15
         });
         let processedOrders = 0;
 		var exchange = new BitstampExchange();
@@ -72,7 +72,7 @@ describe('OrderProcessor', () => {
 
         let balTracker = {
             retrieveBalance: (ex, cb) => {
-                var balance = Balance.createFromPlainObject({usd_avail:300,btc_avail:5,exchange_id:1});
+                var balance = Balance.createFromPlainObject({usd_avail:303,btc_avail:6,exchange_id:1});
                 cb(null, balance);
             }
         };
@@ -141,7 +141,7 @@ describe('OrderProcessor', () => {
             amount: 3,
             price: 12
         });
-        
+
         var processOrderSpy = simple.mock(BitstampExchange, 'processOrder');
 
         let balTracker = {
