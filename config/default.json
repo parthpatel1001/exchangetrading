@@ -42,6 +42,9 @@
        "botname":"Jarvis",
        "mrkdwn": true
      }
+    },
+    "Mixpanel": {
+      "Token": "This is where the token would go"
     }
   },
   "Statsd":{
