@@ -5,7 +5,9 @@ import pm2 from 'pm2';
 import {BalanceTracker} from './Balance/BalanceTracker';
 import {CoinbaseExchange} from './Exchange/Coinbase/CoinbaseExchange';
 import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
-import {Notification} from './Notification'; // TODO MOVE THIS TO A NAMESPACE/DOMAIN FOLDER
+import {Notification, NotificationLevels} from './Notification';
+
+Notification.eventTriggered("Application Start Up", { AppName: "TrackBalance" }, "", NotificationLevels.HIGH);
 
 let coinbase = new CoinbaseExchange(),
     bitstamp = new BitstampExchange();
