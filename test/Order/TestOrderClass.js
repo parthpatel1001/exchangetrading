@@ -4,7 +4,7 @@ import assert from "assert";
 import {OrderBase} from '../../lib/Order/OrderBase';
 import {BuyOrder} from '../../lib/Order/BuyOrder';
 import {SellOrder} from '../../lib/Order/SellOrder';
-import {BitstampExchange} from '../../lib/Exchange/Bitstamp/BitstampExchange';
+import {BitstampExchange} from '../../lib/Exchange/Wrappers/BitstampExchange';
 
 describe('Order', function(){
 	it('Should give correct subtotal of order before fee',function(){

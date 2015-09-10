@@ -4,7 +4,7 @@ import {OrderFactory} from '../../lib/Order/OrderFactory.js';
 import {SellOrder} from '../../lib/Order/SellOrder.js';
 import {BuyOrder} from '../../lib/Order/BuyOrder.js';
 import {Balance} from '../../lib/Balance/Balance.js';
-import {BitstampExchange} from '../../lib/Exchange/Bitstamp/BitstampExchange.js';
+import {BitstampExchange} from '../../lib/Exchange/Wrappers/BitstampExchange.js';
 import assert from "assert";
 import expect from "expect.js";
 import async from 'async';

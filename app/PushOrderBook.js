@@ -3,9 +3,9 @@ import async from 'async';
 import config from 'config';
 import pm2 from 'pm2';
 import {OrderBookManager} from './OrderBook/OrderBookManager';
-import {CoinbaseOrderBook} from './Exchange/Coinbase/CoinbaseOrderBook';
+import {CoinbaseOrderBookTranslator} from './OrderBook/Translator/Coinbase';
 import {CoinbaseExchange} from './Exchange/Coinbase/CoinbaseExchange';
-import {BitstampOrderBook} from './Exchange/Bitstamp/BitstampOrderBook';
+import {BitstampOrderBookTranslator} from './OrderBook/Translator/Bitstamp';
 import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
 import {OrderBookPusher} from './OrderBook/OrderBookPusher.js';
 import {Notification, NotificationLevels} from './Notification';
@@ -14,8 +14,8 @@ Notification.eventTriggered("Application Start Up", { AppName: "PushOrderBook" }
 
 let orderBookManager = new OrderBookManager();
 // TODO: Are the exchanges really necessary to pass through here? Meaning do the order books really need an exchange prop?
-orderBookManager.addOrderBook(new CoinbaseOrderBook(new CoinbaseExchange()));
-orderBookManager.addOrderBook(new BitstampOrderBook(new BitstampExchange()));
+orderBookManager.addOrderBook(new CoinbaseOrderBookTranslator());
+orderBookManager.addOrderBook(new BitstampOrderBookTranslator());
 
 let orderBookPusher = new OrderBookPusher(orderBookManager);
 

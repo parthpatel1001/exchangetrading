@@ -73,6 +73,16 @@
       "balance_poll_interval":30000, // 30 s
       "trade_fee": 0.0025,
       "use_live_orderbook": false
+    },
+    "BitFinEx":{
+      "id":2,
+      "key":"",
+      "secret":"",
+      "clientId":"",
+      "trading_enabled":false,
+      "balance_poll_interval":30000, // 30 s
+      "trade_fee": 0.0025, // ????????
+      "use_live_orderbook": false
     }
   }
 }
