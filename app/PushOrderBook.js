@@ -50,4 +50,4 @@ setTimeout(function(){
         pm2.restart('OrderBookPusher');
     });
 
-},1000);
+},60000);
