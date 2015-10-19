@@ -16,7 +16,7 @@
     "LINKED_ORDER_STREAM_SOCKET":"LINKED_ORDER_STREAM_SOCKET"
   },
   "TradeThresholds":{
-    "MAX_TRADE_AMOUNT": 7.0000000, //USD
+    "MAX_TRADE_AMOUNT": 25.0000000, //USD
     "COINBASE_BITSTAMP_ARB_THRESHOLD": 0.0051, //percent as decimal
     "MINIMUM_BUY_BALANCE_THRESHOLD": 0.01, // balance must be > orderAmount*threshold in order to execute
     "MINIMUM_SELL_BALANCE_THRESHOLD": 0.01
