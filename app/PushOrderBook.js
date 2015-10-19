@@ -9,6 +9,7 @@ import {BitstampOrderBook} from './Exchange/Bitstamp/BitstampOrderBook';
 import {BitstampExchange} from './Exchange/Bitstamp/BitstampExchange';
 import {OrderBookPusher} from './OrderBook/OrderBookPusher.js';
 import {Notification, NotificationLevels} from './Notification';
+import {RedisWrapper} from './Wrappers/redisWrapper';
 
 Notification.eventTriggered("Application Start Up", { AppName: "PushOrderBook" }, "", NotificationLevels.HIGH);
 
@@ -40,3 +41,13 @@ process.on('uncaughtException', function (e) {
     ]);
 });
 
+// restart the order book every 10 minutes
+setTimeout(function(){
+    // delete the redis key
+    RedisWrapper.deleteValue(config.get('CacheKeys.ORDER_BOOK_TOP'));
+    // restart
+    pm2.connect((err) => {
+        pm2.restart('OrderBookPusher');
+    });
+
+},60000);

@@ -38,6 +38,10 @@
     {
       "name":"TrackBalance",
       "script":"es5/TrackBalance.js"
+    },
+    {
+      "name": "CancelOrder",
+      "script":"es5/CancelOrder.js"
     }
   ]
 }
