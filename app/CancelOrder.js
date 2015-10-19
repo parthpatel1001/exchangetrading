@@ -9,7 +9,7 @@ var opts = config.get('Notification.Slack.error_config');
 
 
 
-setTimeout(function(){
+setInterval(function(){
     ex.getOpenOrders(function(orders){
         console.log(orders);
         var now = new Date(),
@@ -18,20 +18,22 @@ setTimeout(function(){
             var submited_at = Date.parse(orders[i].created_at);
             if (now - submited_at > 60000) {
                 orders_to_cancel.push(orders[i].id);
-                //ex.cancelOrder(orders[i].id,function(err,response,data){
-                //    if(err) {
-                //        console.log('Canceled orders ,',orders[i].id,', result:',err,response,data);
-                //    } else {
-                //        console.log('Canceled order result:',data);
-                //    }
-                //
-                //});
+                ex.cancelOrder(orders[i].id,function(err,response,data){
+                    if(err) {
+                        console.log('Canceled orders ,',orders[i].id,', result:',err,response,data);
+                    } else {
+                        console.log('Canceled order result:',data);
+                    }
+
+                });
             }
         }
 
         if(orders_to_cancel.length > 0) {
             notifier.message('Canceled '+orders_to_cancel.length,opts);
-            notifier.message('Canceled ids: '+JSON.stringify(orders_to_cancel));
+            console.log('Canceled orders: ');
+            console.log(orders_to_cancel);
+            //notifier.message('Canceled ids: '+JSON.stringify(orders_to_cancel));
         }
 
     });

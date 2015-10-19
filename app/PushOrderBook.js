@@ -42,11 +42,12 @@ process.on('uncaughtException', function (e) {
 });
 
 // restart the order book every 10 minutes
-setTimeout(function(){
+setInterval(function(){
     // delete the redis key
     RedisWrapper.deleteValue(config.get('CacheKeys.ORDER_BOOK_TOP'));
     // restart
     pm2.connect((err) => {
+        console.log('Restarted Order Book Pusher & deleted ',config.get('CacheKeys.ORDER_BOOK_TOP'));
         pm2.restart('OrderBookPusher');
     });
 
