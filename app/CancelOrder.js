@@ -5,13 +5,13 @@ import {RedisWrapper} from './Wrappers/redisWrapper';
 
 var notifier = new Notification();
 var ex = new CoinbaseExchange();
-var opts = config.get('Notification.Slack.error_config');
+var opts = config.get('Notification.Slack.good_config');
 
 
 
 setInterval(function(){
     ex.getOpenOrders(function(orders){
-        console.log(orders);
+        console.log('Got %s open orders',orders.length);
         var now = new Date(),
             orders_to_cancel = [];
         for(var i in orders) {
@@ -30,7 +30,7 @@ setInterval(function(){
         }
 
         if(orders_to_cancel.length > 0) {
-            notifier.message('Canceled '+orders_to_cancel.length,opts);
+            notifier.message('Canceled '+orders_to_cancel.length+' orders',opts);
             console.log('Canceled orders: ');
             console.log(orders_to_cancel);
             //notifier.message('Canceled ids: '+JSON.stringify(orders_to_cancel));
