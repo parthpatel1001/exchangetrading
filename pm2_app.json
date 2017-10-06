@@ -11,7 +11,7 @@
     {
       "name": "OrderProcessor",
       "script": "es5/ProcessOrder.js",
-      "autorestart": false // this process touches real money, lets not restart this automatically
+      "autorestart": false // this process touches real money, lets not restart this automatically 
     },
 //    {
 //      "name": "Dashboard",
